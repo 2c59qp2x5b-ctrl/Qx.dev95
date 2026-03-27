@@ -1,196 +1,143 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Qx.dev95 - Free Apps & IDs</title>
+    
+    <style>
+        /* Style inspiré de BlueApple & Coddly */
+        :root {
+            --bg: #0b0d11;
+            --card-bg: #1c1c1e;
+            --text: #ffffff;
+            --sub-text: #8e8e93;
+            --accent: #5e5ce6;
+        }
 
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>BlueApple</title>
-<!-- SEO & Meta -->
-<meta name="description"
-content="The best way to get any apps & games you want for free. Find updates, FAQs, and step-by-step tutorials." />
-<meta name="keywords"
-content="Apple IDs, Apple ID, free Apple ID download, free ID, Apple free apps download, mobile free apps, BlueApple, BlueApple pages, BlueApple pages dev, blueapple, blueapple pages, blueapple pages dev, blueapplepages, blueapplepagesdev, blueapple.pages, blueapple.pages.dev" />
-<meta name="robots" content="index, follow, max-snippet:-1, max-video-preview:-1, max-image-preview:large" />
-<script type="application/ld+json">
-{
-"@context": "https://schema.org",
-"@type": "WebSite",
-"name": "BlueApple",
-"url": "https://blueapple.pages.dev/"
-}
-</script>
+        [data-theme="light"] {
+            --bg: #ffffff;
+            --card-bg: #f2f2f7;
+            --text: #000000;
+            --sub-text: #636366;
+            --accent: #007aff;
+        }
 
-<!-- Open Graph / Twitter -->
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="BlueApple – The best way to get any apps & games you want for free." />
-<meta name="twitter:description" content="The best source for Apple IDs, FAQs, and detailed platform guides." />
-<meta name="twitter:image" content="https://blueapple.pages.dev/image/BlueApple.png" />
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', -apple-system, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            transition: 0.3s;
+        }
 
-<!-- Favicons -->
-<link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
-<link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
-<link rel="shortcut icon" href="/favicon/favicon.ico" />
-<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
-<link rel="manifest" href="/favicon/site.webmanifest" />
+        .container { width: 100%; max-width: 500px; padding: 40px 20px; text-align: center; }
+        
+        /* Bouton Thème */
+        .theme-toggle {
+            position: fixed; top: 20px; right: 20px;
+            background: var(--card-bg); border: none; padding: 10px;
+            border-radius: 50%; cursor: pointer; color: var(--text);
+        }
 
-<!-- Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+        /* En-tête */
+        .icon { width: 80px; height: 80px; border-radius: 18px; margin-bottom: 20px; }
+        h1 { font-size: 32px; font-weight: 800; margin: 0; }
+        .description { color: var(--sub-text); margin: 15px 0 40px 0; line-height: 1.4; }
 
-<!-- Styles -->
-<link rel="stylesheet" href="/style/style.css">
+        /* Cartes & Sections */
+        .content-section { text-align: left; margin-bottom: 30px; }
+        .section-title { font-size: 22px; margin-bottom: 15px; }
+        
+        .feature-card {
+            background: var(--card-bg); border-radius: 24px; padding: 20px;
+            text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
 
-<!-- Analytics & Scripts -->
-<script>
-(function() {
-const saved = localStorage.getItem('theme');
-const system = window.matchMedia('(prefers-color-scheme: light)').matches;
-if (saved === 'light' || (!saved && system)) {
-document.documentElement.setAttribute('data-theme', 'light');
-}
-})();
-</script>
-<!-- <script type="text/javascript">
-(function (c, l, a, r, i, t, y) {
-c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
-t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
-y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
-})(window, document, "clarity", "script", "v7iaorcf2c");
-</script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-9WGPL55GPP"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag() { dataLayer.push(arguments); }
-gtag('js', new Date());
-gtag('config', 'G-9WGPL55GPP');
-</script>-->
+        .feature-card img { width: 100%; border-radius: 14px; margin-bottom: 15px; }
+        
+        .button {
+            display: block; background: var(--accent); color: white;
+            text-decoration: none; padding: 15px; border-radius: 16px;
+            font-weight: 700; margin-top: 20px;
+        }
+
+        /* FAQ */
+        .faq-item { background: var(--card-bg); border-radius: 16px; padding: 15px; margin-bottom: 10px; }
+        .faq-question { font-weight: 700; margin-bottom: 5px; color: var(--accent); }
+        .faq-answer { font-size: 14px; color: var(--sub-text); }
+
+        /* Social */
+        .social-container { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 30px; }
+        .social-button {
+            background: var(--card-bg); color: var(--text); padding: 12px;
+            border-radius: 12px; text-decoration: none; font-size: 14px; font-weight: 600;
+        }
+    </style>
 </head>
 <body>
-<script src="https://inhaledrew.com/a3/ea/9b/a3ea9b1e2a251e1acb278a457b70386b.js"></script>
-<script src="https://pl28930578.effectivegatecpm.com/aa/47/81/aa4781acff43a733b1df12ebb8fde860.js"></script>
-<script src="https://pl28930507.effectivegatecpm.com/a3/ea/9b/a3ea9b1e2a251e1acb278a457b70386b.js"></script>
-<button id="themeToggle" class="theme-toggle" aria-label="Toggle Theme">
-<svg class="theme-icon sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-<circle cx="12" cy="12" r="5"></circle>
-<line x1="12" y1="1" x2="12" y2="3"></line>
-<line x1="12" y1="21" x2="12" y2="23"></line>
-<line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-<line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-<line x1="1" y1="12" x2="3" y2="12"></line>
-<line x1="21" y1="12" x2="23" y2="12"></line>
-<line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-<line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-</svg>
-<svg class="theme-icon moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-</svg>
+
+<button id="themeToggle" class="theme-toggle">
+    🌓
 </button>
 
 <div class="container">
-<header class="hero">
-<img class="icon" src="/image/BlueApple.png" alt="BlueApple Icon" />
-<h1 class="title">BlueApple</h1>
-<p class="description">
-The best way to get any apps & games you want for free. <br>
-good, fast, and working all time.
-</p>
+    <header class="hero">
+        <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/6/67/App_Store_Logo_2017.svg" alt="Icon" />
+        <h1 class="title">Qx.dev95</h1>
+        <p class="description">
+            Le meilleur moyen d'obtenir vos apps & jeux gratuitement. <br>
+            Rapide, efficace et toujours fonctionnel.
+        </p>
+    </header>
 
+    <main>
+        <section class="content-section">
+            <h2 class="section-title">Apple IDs</h2>
+            <div class="feature-card">
+                <img src="https://i.ibb.co/VWV0m8z/creeper-apple.png" alt="Minecraft ID">
+                <h3>Minecraft & Apple TV ID</h3>
+                <p>Accédez à Minecraft et Apple TV gratuitement. Expérience sécurisée.</p>
+                <a href="#" class="button">Obtenir l'ID</a>
+            </div>
+        </section>
 
-<section class="content-section">
-<h2 class="section-title">Apple IDs</h2>
-<div class="features-grid">
-<div class="feature-card">
-<img src="/image/AppleID.png" alt="Apple ID Icon">
-<h3>Minecraft & Apple TV ID</h3>
-<p>You can get Minecraft and Apple TV for free (iOS users only). Your experience is safe and reliable.</p>
-<br>
-<a href="/tasks/index.html" class="button primary">Get</a></div>
-</div>
-</section>
+        <section class="content-section">
+            <h2 class="section-title">FAQ</h2>
+            <div class="faq-item">
+                <div class="faq-question">Comment utiliser l'ID ?</div>
+                <div class="faq-answer">Connectez-vous à l'App Store, allez dans vos achats et cherchez les jeux.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">L'ID est verrouillé ?</div>
+                <div class="faq-answer">Pas de panique, il sera déverrouillé automatiquement d'ici 1 à 24h.</div>
+            </div>
+        </section>
 
-<section class="content-section">
-<h2 class="section-title">Frequently Asked Questions</h2>
-<div class="faq-content">
-<div class="faq-item">
-<div class="faq-question">How to use the apple id</div>
-<div class="faq-answer">
-just login to the apple id and when you do that then enter to app store and click on your profile pic and click on My Purchase and click on OMARKXOX and you will see the apps & games
-</div>
-</div>
-<div class="faq-item">
-<div class="faq-question">What do I do if the ID is locked?</div>
-<div class="faq-answer">
-Don't worry. The ID will be resolved soon.
-Wait from 1 hour to 24 hours. Our team keeps your experience safe and flawless.
-</div>
-</div>
-</div>
-</section>
-</main>
-</div>
-<div class="social-container">
-<a href="https://www.youtube.com/@crackbyjack" target="_blank" class="social-button">
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 90 78" fill="currentColor">
-<path
-d="M 88.119 23.338 c -1.035 -3.872 -4.085 -6.922 -7.957 -7.957 C 73.144 13.5 45 13.5 45 13.5 s -28.144 0 -35.162 1.881 c -3.872 1.035 -6.922 4.085 -7.957 7.957 C 0 30.356 0 45 0 45 s 0 14.644 1.881 21.662 c 1.035 3.872 4.085 6.922 7.957 7.957 C 16.856 76.5 45 76.5 45 76.5 s 28.144 0 35.162 -1.881 c 3.872 -1.035 6.922 -4.085 7.957 -7.957 C 90 59.644 90 45 90 45 S 90 30.356 88.119 23.338 z M 36 58.5 v -27 L 59.382 45 L 36 58.5 z">
-</path>
-</svg>
-YouTube Channel
-</a>
+        <div class="social-container">
+            <a href="#" class="social-button">YouTube</a>
+            <a href="#" class="social-button">Telegram</a>
+            <a href="#" class="social-button">Discord</a>
+            <a href="#" class="social-button">Contact</a>
+        </div>
+    </main>
 
-<a href="https://t.me/blueappla" target="_blank" class="social-button"> 
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd">
-<path
-d="M1.116 11.23c6.059-2.632 10.094-4.38 12.119-5.228 5.766-2.407 6.963-2.822 7.747-2.84.173 0 .554.035.814.242.207.174.26.398.294.571.035.173.07.537.035.814-.312 3.29-1.662 11.272-2.355 14.943-.294 1.558-.865 2.077-1.42 2.129-1.212.104-2.13-.796-3.29-1.558-1.835-1.195-2.856-1.939-4.64-3.117-2.06-1.35-.727-2.095.45-3.306.312-.312 5.627-5.16 5.73-5.592.017-.052.017-.26-.104-.363-.12-.104-.294-.07-.433-.035-.19.035-3.1 1.974-8.76 5.8-0.83.571-1.575.848-2.251.83-.744-.017-2.164-.415-3.238-.762-1.299-.415-2.337-.64-2.251-1.368.046-.381.558-.763 1.529-1.161z">
-</path>
-</svg>
-Join Telegram
-</a>
-
-<a href="https://t.me/omarkxox" target="_blank" class="social-button"> 
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd">
-<path
-d="M1.116 11.23c6.059-2.632 10.094-4.38 12.119-5.228 5.766-2.407 6.963-2.822 7.747-2.84.173 0 .554.035.814.242.207.174.26.398.294.571.035.173.07.537.035.814-.312 3.29-1.662 11.272-2.355 14.943-.294 1.558-.865 2.077-1.42 2.129-1.212.104-2.13-.796-3.29-1.558-1.835-1.195-2.856-1.939-4.64-3.117-2.06-1.35-.727-2.095.45-3.306.312-.312 5.627-5.16 5.73-5.592.017-.052.017-.26-.104-.363-.12-.104-.294-.07-.433-.035-.19.035-3.1 1.974-8.76 5.8-0.83.571-1.575.848-2.251.83-.744-.017-2.164-.415-3.238-.762-1.299-.415-2.337-.64-2.251-1.368.046-.381.558-.763 1.529-1.161z">
-</path>
-</svg>
-Contact us
-</a>
-
-
-<a href="https://discord.gg/EvXrdkN5UV" target="_blank" class="social-button"> 
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-<path
-d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z">
-</path>
-</svg>
-Join Discord
-</a>
+    <footer style="margin-top: 50px; font-size: 12px; color: gray;">
+        <p>&copy; 2026 Qx.dev95. Tous droits réservés.</p>
+    </footer>
 </div>
-</header>
-<main>
-<footer>
-<p>&copy; 2026 Coddly & BlueApple, LLC. All rights reserved.</p>
-</footer>
 
-<!-- Scripts -->
 <script>
-const themeToggle = document.getElementById('themeToggle');
-
-themeToggle.addEventListener('click', () => {
-const doc = document.documentElement;
-const current = doc.getAttribute('data-theme');
-const target = current === 'light' ? 'dark' : 'light';
-
-doc.classList.add('theme-toggling');
-
-doc.setAttribute('data-theme', target);
-localStorage.setItem('theme', target);
-
-setTimeout(() => {
-doc.classList.remove('theme-toggling');
-}, 500); 
-});
+    const btn = document.getElementById('themeToggle');
+    btn.addEventListener('click', () => {
+        const doc = document.documentElement;
+        const theme = doc.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+        doc.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+    });
 </script>
+
 </body>
 </html>
