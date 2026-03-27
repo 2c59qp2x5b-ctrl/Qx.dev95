@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Qx.dev95 ID</title>
+    <style>
+        :root {
+            /* Mode Sombre (BlueApple Style) */
+            --bg: #0b0c14;
+            --card-bg: #16171d;
+            --text: #ffffff;
+            --sub-text: #a1a1a6;
+            --btn: linear-gradient(to right, #5e5ce6, #7d58ff);
+            --toggle-bg: rgba(255, 255, 255, 0.1);
+        }
+
+        [data-theme="light"] {
+            /* Mode Clair (App Store Style) */
+            --bg: #f2f2f7;
+            --card-bg: #ffffff;
+            --text: #000000;
+            --sub-text: #6e6e73;
+            --btn: linear-gradient(to right, #007aff, #0051ff);
+            --toggle-bg: rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            transition: 0.3s ease;
+        }
+
+        /* --- Bouton Thème en haut à droite --- */
+        .theme-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--toggle-bg);
+            border: none;
+            border-radius: 12px;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .theme-btn img {
+            width: 26px;
+            height: 26px;
+        }
+
+        /* Affichage alterné des icônes */
+        .sun-icon { display: none; }
+        [data-theme="light"] .sun-icon { display: block; filter: invert(1); }
+        [data-theme="light"] .moon-icon { display: none; }
+
+        /* --- Contenu --- */
+        .app-store-logo {
+            width: 60px;
+            height: 60px;
+            margin-top: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        h1 { font-size: 32px; font-weight: 700; margin: 20px 0 10px 0; }
+        .subtitle { color: var(--sub-text); text-align: center; font-size: 16px; max-width: 280px; line-height: 1.4; margin-bottom: 40px; }
+
+        h2 { font-size: 22px; margin-bottom: 20px; align-self: center; }
+
+        /* --- La Carte Minecraft --- */
+        .card {
+            background-color: var(--card-bg);
+            width: 100%;
+            max-width: 350px;
+            border-radius: 28px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .split-image {
+            width: 100%;
+            height: 150px;
+            border-radius: 18px;
+            overflow: hidden;
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .left-side { background-color: #55a845; flex: 1; display: flex; justify-content: center; align-items: center; font-size: 80px; }
+        .right-side { background-color: #000; flex: 1; display: flex; justify-content: center; align-items: center; color: white; font-size: 60px; }
+
+        .card-title { font-size: 20px; font-weight: 600; margin-bottom: 15px; }
+        .card-desc { color: var(--sub-text); text-align: center; font-size: 14px; line-height: 1.5; margin-bottom: 25px; }
+
+        .get-btn {
+            background: var(--btn);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 15px;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(94, 92, 230, 0.3);
+        }
+    </style>
+</head>
+<body id="body">
+
+    <button class="theme-btn" onclick="toggleTheme()">
+        <img src="image_9.png" class="moon-icon" alt="Lune">
+        <img src="image_10.png" class="sun-icon" alt="Soleil">
+    </button>
+
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/67/App_Store_Logo_2017.svg" class="app-store-logo">
+
+    <h1>Qx.dev95</h1>
+    <p class="subtitle">The best way to get any apps & games you want for free.</p>
+
+    <h2>Apple IDs</h2>
+
+    <div class="card">
+        <div class="split-image">
+            <div class="left-side">👾</div>
+            <div class="right-side">tv</div>
+        </div>
+        
+        <div class="card-title">Minecraft & Apple TV ID</div>
+        <p class="card-desc">Vous pouvez obtenir Minecraft et Apple TV gratuitement. Votre expérience est sûre et fiable.</p>
+        
+        <button class="get-btn">Get</button>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const body = document.getElementById('body');
+            if (body.hasAttribute('data-theme')) {
+                body.removeAttribute('data-theme');
+            } else {
+                body.setAttribute('data-theme', 'light');
+            }
+        }
+    </script>
+</body>
+</html>
