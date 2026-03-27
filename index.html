@@ -6,164 +6,95 @@
     <title>Qx.dev95 ID</title>
     <style>
         :root {
-            /* Mode Sombre Minimaliste (Noir Plein) */
-            --bg: #000000;
-            --card-bg: #111111;
+            --bg: #0b0d11; /* Fond sombre profond type Coddly */
+            --card-bg: rgba(255, 255, 255, 0.08); /* Boutons translucides */
             --text: #ffffff;
-            --sub-text: #aaaaaa;
-            --btn: linear-gradient(to right, #5e5ce6, #7d58ff);
-            --toggle-bg: rgba(255, 255, 255, 0.1);
-        }
-
-        [data-theme="light"] {
-            /* Mode Clair Minimaliste (Blanc Plein) */
-            --bg: #ffffff;
-            --card-bg: #f9f9f9;
-            --text: #000000;
-            --sub-text: #666666;
-            --btn: linear-gradient(to right, #007aff, #0051ff);
-            --toggle-bg: rgba(0, 0, 0, 0.05);
+            --sub-text: #8e8e93;
         }
 
         body {
             background-color: var(--bg);
             color: var(--text);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            padding: 40px 20px;
         }
 
-        /* --- Bouton Thème Interactif --- */
-        .theme-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: var(--toggle-bg);
-            border: none;
-            border-radius: 12px;
-            width: 45px;
-            height: 45px;
+        /* --- En-tête --- */
+        .profile-img {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135.21deg, #161c2d 1.1%, #0b0d11 98.9%); /* Dégradé discret */
+            border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            z-index: 1000;
-        }
-
-        .theme-btn svg {
-            width: 28px;
-            height: 28px;
-            fill: var(--text);
-            transition: fill 0.3s ease;
-        }
-
-        .moon-icon { display: block; }
-        .sun-icon { display: none; }
-        [data-theme="light"] .sun-icon { display: block; }
-        [data-theme="light"] .moon-icon { display: none; }
-
-        /* --- Contenu --- */
-        .app-store-logo {
-            width: 60px;
-            height: 60px;
-            margin-top: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-
-        h1 { font-size: 32px; font-weight: 700; margin: 20px 0 10px 0; transition: color 0.3s ease; }
-        .subtitle { color: var(--sub-text); text-align: center; font-size: 16px; max-width: 280px; line-height: 1.4; margin-bottom: 40px; transition: color 0.3s ease; }
-        h2 { font-size: 22px; margin-bottom: 20px; transition: color 0.3s ease; }
-
-        /* --- La Carte Design --- */
-        .card {
-            background-color: var(--card-bg);
-            width: 100%;
-            max-width: 350px;
-            border-radius: 28px;
-            padding: 25px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            transition: background-color 0.3s ease;
-        }
-
-        /* Conteneur pour ton image split générée en SVG */
-        .split-image-svg {
-            width: 100%;
-            height: 150px;
-            border-radius: 18px;
-            overflow: hidden;
             margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .profile-img svg { width: 40px; height: 40px; fill: white; }
+
+        h1 { font-size: 28px; font-weight: 700; margin: 0; }
+        .description { color: var(--sub-text); text-align: center; font-size: 15px; margin: 15px 0 40px 0; max-width: 300px; line-height: 1.5; }
+
+        /* --- Liste de Boutons (Style Coddly) --- */
+        .links-container { width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 12px; }
+
+        .link-item {
+            background-color: var(--card-bg);
+            padding: 16px 20px;
+            border-radius: 16px;
             display: flex;
-        }
-
-        /* Dessin SVG Inline de ton image split */
-        .split-image-svg svg {
-            width: 100%;
-            height: 100%;
-        }
-
-        .card-title { font-size: 20px; font-weight: 600; margin-bottom: 15px; transition: color 0.3s ease; }
-        .card-desc { color: var(--sub-text); text-align: center; font-size: 14px; line-height: 1.5; margin-bottom: 25px; transition: color 0.3s ease; }
-
-        .get-btn {
-            background: var(--btn);
+            align-items: center;
+            text-decoration: none;
             color: white;
-            border: none;
-            width: 100%;
-            padding: 15px;
-            border-radius: 25px;
-            font-size: 18px;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(94, 92, 230, 0.3);
+            transition: transform 0.2s ease, background 0.2s ease;
+            border: 1px solid rgba(255,255,255,0.05);
         }
+
+        .link-item:active { transform: scale(0.98); background-color: rgba(255, 255, 255, 0.12); }
+
+        .link-icon { width: 30px; height: 30px; margin-right: 15px; display: flex; justify-content: center; align-items: center; }
+
+        .link-text { font-size: 16px; font-weight: 500; flex-grow: 1; }
+
+        /* --- Badge de Crédit --- */
+        .footer-credit { margin-top: 50px; color: var(--sub-text); font-size: 12px; display: flex; align-items: center; gap: 5px; }
     </style>
 </head>
-<body id="body">
+<body>
 
-    <button class="theme-btn" onclick="toggleTheme()">
-        <svg class="moon-icon" viewBox="0 0 24 24"><path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,11.69A1,1,0,0,0,21.64,13Z"/></svg>
-        <svg class="sun-icon" viewBox="0 0 100 100"><circle cx="50" cy="50" r="16.5"></circle><rect x="44.5" y="10" width="11" height="23" rx="5.5"></rect><rect x="44.5" y="67" width="11" height="23" rx="5.5"></rect><rect x="10" y="44.5" width="23" height="11" rx="5.5"></rect><rect x="67" y="44.5" width="23" height="11" rx="5.5"></rect><rect x="20.5" y="24" width="23" height="11" rx="5.5" transform="rotate(-45 32 29.5)"></rect><rect x="56.5" y="24" width="23" height="11" rx="5.5" transform="rotate(45 68 29.5)"></rect><rect x="20.5" y="65" width="23" height="11" rx="5.5" transform="rotate(45 32 70.5)"></rect><rect x="56.5" y="65" width="23" height="11" rx="5.5" transform="rotate(-45 68 70.5)"></rect></svg>
-    </button>
-
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/67/App_Store_Logo_2017.svg" class="app-store-logo">
-
-    <h1>Qx.dev95</h1>
-    <p class="subtitle">The best way to get any apps & games you want for free.</p>
-    <h2>Apple IDs</h2>
-
-    <div class="card">
-        <div class="split-image-svg">
-            <svg viewBox="0 0 200 100" preserveAspectRatio="none">
-                <rect x="0" y="0" width="100" height="100" fill="#2DA12D"/>
-                <rect x="20" y="30" width="20" height="20" fill="black"/> <rect x="60" y="30" width="20" height="20" fill="black"/> <rect x="40" y="50" width="20" height="10" fill="black"/> <rect x="30" y="60" width="10" height="20" fill="black"/> <rect x="60" y="60" width="10" height="20" fill="black"/> <rect x="40" y="60" width="20" height="10" fill="black"/> <rect x="100" y="0" width="100" height="100" fill="#000000"/>
-                <text x="115" y="60" font-family="-apple-system, system-ui" font-size="50" fill="white"></text>
-                <text x="160" y="55" font-family="-apple-system, system-ui" font-weight="600" font-size="30" fill="white">tv</text>
-            </svg>
-        </div>
-        
-        <div class="card-title">Minecraft & Apple TV ID</div>
-        <p class="card-desc">Vous pouvez obtenir Minecraft et Apple TV gratuitement. Votre expérience est sûre et fiable.</p>
-        
-        <button class="get-btn">Get</button>
+    <div class="profile-img">
+        <svg viewBox="0 0 24 24"><path d="M12,2L4.5,20.29L5.21,21L12,18L18.79,21L19.5,20.29L12,2Z"/></svg>
     </div>
 
-    <script>
-        function toggleTheme() {
-            const body = document.getElementById('body');
-            if (body.hasAttribute('data-theme')) {
-                body.removeAttribute('data-theme');
-            } else {
-                body.setAttribute('data-theme', 'light');
-            }
-        }
-    </script>
+    <h1>Qx.dev95</h1>
+    <p class="description">Experience the next level of Apple IDs. Secure, fast, and built for you.</p>
+
+    <div class="links-container">
+        <a href="#" class="link-item">
+            <div class="link-icon"></div>
+            <div class="link-text">Minecraft & Apple TV ID</div>
+        </a>
+
+        <a href="#" class="link-item">
+            <div class="link-icon">▶️</div>
+            <div class="link-text">YouTube Channel</div>
+        </a>
+
+        <a href="#" class="link-item">
+            <div class="link-icon">💬</div>
+            <div class="link-text">Contact Support</div>
+        </a>
+    </div>
+
+    <div class="footer-credit">
+        ⚡️ Made with <b>Qx.dev95</b>
+    </div>
+
 </body>
 </html>
