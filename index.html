@@ -6,22 +6,22 @@
     <title>Qx.dev95 ID</title>
     <style>
         :root {
-            /* Mode Sombre (Style BlueApple) */
-            --bg: #0b0c14;
-            --card-bg: #16171d;
-            --text: #ffffff;
-            --sub-text: #a1a1a6;
-            --btn: linear-gradient(to right, #5e5ce6, #7d58ff);
+            /* Mode Sombre Minimaliste (Noir Plein) */
+            --bg: #000000; /* Fond noir pur */
+            --card-bg: #111111; /* Fond de carte légèrement plus clair pour le contraste */
+            --text: #ffffff; /* Texte blanc pur */
+            --sub-text: #aaaaaa; /* Texte secondaire gris clair */
+            --btn: linear-gradient(to right, #5e5ce6, #7d58ff); /* Conserver le dégradé du bouton pour le look premium */
             --toggle-bg: rgba(255, 255, 255, 0.1);
         }
 
         [data-theme="light"] {
-            /* Mode Clair (Style App Store) */
-            --bg: #f2f2f7;
-            --card-bg: #ffffff;
-            --text: #000000;
-            --sub-text: #6e6e73;
-            --btn: linear-gradient(to right, #007aff, #0051ff);
+            /* Mode Clair Minimaliste (Blanc Plein) */
+            --bg: #ffffff; /* Fond blanc pur */
+            --card-bg: #f9f9f9; /* Fond de carte légèrement plus sombre pour le contraste */
+            --text: #000000; /* Texte noir pur */
+            --sub-text: #666666; /* Texte secondaire gris foncé */
+            --btn: linear-gradient(to right, #007aff, #0051ff); /* Conserver le dégradé du bouton */
             --toggle-bg: rgba(0, 0, 0, 0.05);
         }
 
@@ -34,7 +34,7 @@
             flex-direction: column;
             align-items: center;
             padding: 20px;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         /* --- Bouton Thème Interactif (SVG Inline) --- */
@@ -52,11 +52,12 @@
             align-items: center;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            z-index: 1000;
         }
 
         .theme-btn svg {
-            width: 26px;
-            height: 26px;
+            width: 28px; /* Légèrement plus grand pour correspondre au design fourni */
+            height: 28px;
             /* Utilisation de currentColor pour que la couleur suive automatiquement le texte */
             fill: var(--text);
             transition: fill 0.3s ease;
@@ -78,10 +79,10 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
-        h1 { font-size: 32px; font-weight: 700; margin: 20px 0 10px 0; }
-        .subtitle { color: var(--sub-text); text-align: center; font-size: 16px; max-width: 280px; line-height: 1.4; margin-bottom: 40px; }
+        h1 { font-size: 32px; font-weight: 700; margin: 20px 0 10px 0; transition: color 0.3s ease; }
+        .subtitle { color: var(--sub-text); text-align: center; font-size: 16px; max-width: 280px; line-height: 1.4; margin-bottom: 40px; transition: color 0.3s ease; }
 
-        h2 { font-size: 22px; margin-bottom: 20px; }
+        h2 { font-size: 22px; margin-bottom: 20px; transition: color 0.3s ease; }
 
         /* --- La Carte Design --- */
         .card {
@@ -94,6 +95,7 @@
             flex-direction: column;
             align-items: center;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: background-color 0.3s ease;
         }
 
         .split-image {
@@ -108,8 +110,8 @@
         .left-side { background-color: #55a845; flex: 1; display: flex; justify-content: center; align-items: center; font-size: 80px; }
         .right-side { background-color: #000; flex: 1; display: flex; justify-content: center; align-items: center; color: white; font-size: 60px; }
 
-        .card-title { font-size: 20px; font-weight: 600; margin-bottom: 15px; }
-        .card-desc { color: var(--sub-text); text-align: center; font-size: 14px; line-height: 1.5; margin-bottom: 25px; }
+        .card-title { font-size: 20px; font-weight: 600; margin-bottom: 15px; transition: color 0.3s ease; }
+        .card-desc { color: var(--sub-text); text-align: center; font-size: 14px; line-height: 1.5; margin-bottom: 25px; transition: color 0.3s ease; }
 
         .get-btn {
             background: var(--btn);
