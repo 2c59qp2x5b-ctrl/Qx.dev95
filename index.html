@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Qx.dev95 ID</title>
+    <style>
+        :root {
+            /* Variables pour le Thème Sombre (par défaut) */
+            --bg-color: linear-gradient(to bottom, #101016, #141624);
+            --card-bg: #1c1c1e;
+            --text-color: #ffffff;
+            --desc-color: #a1a1a6;
+            --btn-bg: linear-gradient(to right, #6a1b9a, #4e3f94);
+            --btn-text: #ffffff;
+            --toggle-bg: #2c2c2e;
+            --toggle-icon-color: #ffffff;
+        }
+
+        [data-theme="light"] {
+            /* Variables pour le Thème Clair */
+            --bg-color: #f2f2f7;
+            --card-bg: #ffffff;
+            --text-color: #000000;
+            --desc-color: #6e6e73;
+            --btn-bg: linear-gradient(to right, #8e24aa, #5e35b1);
+            --btn-text: #ffffff;
+            --toggle-bg: #e5e5ea;
+            --toggle-icon-color: #000000;
+        }
+
+        body {
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+            transition: background 0.3s ease;
+        }
+
+        /* --- Bouton de Thème (Lune/Soleil) --- */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: var(--toggle-bg);
+            border: none;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+
+        .theme-toggle svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--toggle-icon-color);
+            transition: fill 0.3s ease;
+        }
+
+        /* Masquer l'icône non active */
+        [data-theme="light"] .sun-icon,
+        :root .moon-icon { display: none; }
+
+        [data-theme="light"] .moon-icon,
+        :root .sun-icon { display: block; }
+
+        /* --- Design de la Carte --- */
+        .apple-id-title { font-size: 28px; font-weight: 700; margin-top: 60px; margin-bottom: 25px; transition: color 0.3s ease; }
+        
+        .card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 360px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            transition: background 0.3s ease, border 0.3s ease;
+        }
+
+        [data-theme="light"] .card { border: 1px solid rgba(0,0,0,0.1); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+
+        .split-icon {
+            display: flex;
+            border-radius: 20px;
+            overflow: hidden;
+            width: 100%;
+            height: 140px;
+            margin-bottom: 25px;
+        }
+        .icon-left {
+            background-color: #2da12d; /* Vert Minecraft */
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 6rem;
+        }
+        .icon-right {
+            background-color: #000000; /* Fond noir TV */
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .creeper-emoji { filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); }
+        .apple-tv-emoji { font-size: 5rem; color: #fff; }
+
+        .game-title { font-size: 22px; font-weight: 600; margin-bottom: 15px; text-align: center; transition: color 0.3s ease; }
+        .game-desc { font-size: 16px; color: var(--desc-color); text-align: center; line-height: 1.5; margin-bottom: 25px; transition: color 0.3s ease; }
+        
+        .get-button {
+            background: var(--btn-bg);
+            color: var(--btn-text);
+            font-size: 18px;
+            font-weight: 600;
+            padding: 18px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            max-width: 250px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+        }
+        [data-theme="light"] .get-button { box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+
+    <button class="theme-toggle" id="theme-toggle" aria-label="Changer de thème">
+        <svg class="sun-icon" viewBox="0 0 24 24">
+            <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58a.996.996 0 000 1.41l1.41 1.41c.39.39 1.03.39 1.42 0s.39-1.02 0-1.41L7.41 4.58a.996.996 0 00-1.42 0zM16.59 15.18a.996.996 0 000 1.41l1.41 1.41c.39.39 1.03.39 1.42 0s.39-1.02 0-1.41l-1.41-1.41a.996.996 0 00-1.42 0zM4.58 16.59a.996.996 0 000 1.41l1.41 1.41c.39.39 1.03.39 1.42 0s.39-1.02 0-1.41l-1.41-1.41a.996.996 0 00-1.42 0zM15.18 5.99a.996.996 0 000 1.41l1.41 1.41c.39.39 1.03.39 1.42 0s.39-1.02 0-1.41L16.59 5.99a.996.996 0 00-1.41 0z"/>
+        </svg>
+        <svg class="moon-icon" viewBox="0 0 24 24">
+            <path d="M12.3 22h-.1c-4.9 0-9-4.1-9-9s4.1-9 9-9c.1 0 .2 0 .3 0 .5.1.8.6.6 1.1-.3 1.1-.4 2.2-.4 3.4 0 5 4 9 9 9 1.2 0 2.3-.1 3.4-.4.5-.1 1 .2 1.1.6.2.5-.1 1-.6 1.1-.3 0-.6.1-.9.1h-.1c-.1 0-.2 0-.3 0zm-.9-16c-3.9 0-7 3.1-7 7s3.1 7 7 7c.3 0 .7 0 1-.1-2.7-1.1-4.7-3.7-4.7-6.9 0-2.3.9-4.4 2.5-6-.3-.1-.6-.1-1-.1z"/>
+        </svg>
+    </button>
+
+    <div class="apple-id-title">Qx.dev95 ID</div>
+    
+    <div class="card">
+        <div class="split-icon">
+            <div class="icon-left">
+                <span class="creeper-emoji">👾</span>
+            </div>
+            <div class="icon-right">
+                <span class="apple-tv-emoji"></span>
+            </div>
+        </div>
+        
+        <div class="game-title">Minecraft & Apple TV ID</div>
+        
+        <div class="game-desc">
+            Pour Qx.dev95, obtenez Minecraft et Apple TV gratuitement (utilisateurs iOS uniquement).
+            Votre expérience est sécurisée et fiable.
+        </div>
+        
+        <button class="get-button">Get</button>
+    </div>
+
+    <script>
+        const toggleButton = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        toggleButton.addEventListener('click', () => {
+            // Vérifie le thème actuel
+            if (body.getAttribute('data-theme') === 'light') {
+                // Bascule vers sombre
+                body.removeAttribute('data-theme');
+            } else {
+                // Bascule vers clair
+                body.setAttribute('data-theme', 'light');
+            }
+        });
+    </script>
+</body>
+</html>
