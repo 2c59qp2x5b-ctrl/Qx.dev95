@@ -9,36 +9,36 @@
 
     <style>
         :root {
-            /* THÈME SOMBRE (Par défaut) */
+            /* THÈME SOMBRE */
             --bg-color: #0d0e11;
             --card-bg: #1d1e22;
             --text-main: #ffffff;
             --text-sub: #9e9ea3;
             --accent: #6c63ff;
             --glow-mauve: rgba(108, 99, 255, 0.4);
-            --glow-cyan: rgba(0, 255, 255, 0.2);
             --btn-bg: rgba(255, 255, 255, 0.05);
             --faq-border: rgba(255,255,255,0.05);
             --toggle-bg: #1d1e22;
             --toggle-border: rgba(255,255,255,0.1);
+            --timer-bg: rgba(108, 99, 255, 0.15);
         }
 
-        /* THÈME CLAIR (Tes couleurs personnalisées) */
+        /* THÈME CLAIR (Tes couleurs précises) */
         [data-theme="light"] {
-            --bg-color: #ECF1FE; /* Couleur demandée */
+            --bg-color: #ECF1FE; 
             --card-bg: #ffffff;
             --text-main: #1d1d1f;
-            --text-sub: #86868b;
+            --text-sub: #6e6e73; /* Un peu plus sombre pour la lisibilité */
             --accent: #6c63ff;
             --glow-mauve: rgba(108, 99, 255, 0.2);
-            --glow-cyan: rgba(0, 200, 255, 0.1);
-            --btn-bg: rgba(0, 0, 0, 0.05);
-            --faq-border: rgba(0,0,0,0.05);
-            --toggle-bg: #E6EDFF; /* Couleur demandée */
-            --toggle-border: #D8D9FB; /* Couleur demandée */
+            --btn-bg: rgba(0, 0, 0, 0.03);
+            --faq-border: rgba(0, 0, 0, 0.08);
+            --toggle-bg: #E6EDFF; 
+            --toggle-border: #D8D9FB; 
+            --timer-bg: #f2f2f7; /* Gris Apple très doux pour le timer */
         }
 
-        * { box-sizing: border-box; outline: none; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
+        * { box-sizing: border-box; outline: none; transition: all 0.3s ease; }
 
         body {
             background-color: var(--bg-color);
@@ -49,114 +49,85 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            overflow-x: hidden;
         }
 
-        /* BOUTON THÈME */
         .theme-toggle {
-            position: absolute;
-            top: 25px;
-            right: 25px;
+            position: absolute; top: 25px; right: 25px;
             background: var(--toggle-bg); 
             border: 1px solid var(--toggle-border);
-            width: 42px;
-            height: 42px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            z-index: 1000;
+            width: 42px; height: 42px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; z-index: 1000;
         }
-        .theme-toggle img { width: 20px; height: 20px; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .theme-toggle:hover { transform: scale(1.05); }
+        .theme-toggle img { width: 20px; height: 20px; }
 
         .container { width: 100%; max-width: 420px; text-align: center; }
-        .icon-main { width: 90px; height: 90px; border-radius: 20px; margin-bottom: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.5); }
+        .icon-main { width: 90px; height: 90px; border-radius: 20px; margin-bottom: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
         h1 { font-size: 38px; font-weight: 800; margin: 0; letter-spacing: -1.8px; }
         .desc { color: var(--text-sub); margin: 15px 0 40px 0; font-size: 16px; line-height: 1.6; }
 
-        .section-title { text-align: center; font-size: 24px; font-weight: 700; margin: 40px 0 20px 0; width: 100%; letter-spacing: -0.5px; }
+        .section-title { font-size: 24px; font-weight: 700; margin: 40px 0 20px 0; letter-spacing: -0.5px; }
         
         .feature-card {
-            background: var(--card-bg);
-            border-radius: 30px;
-            padding: 25px;
-            width: 100%;
-            border: 1px solid var(--faq-border);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            background: var(--card-bg); border-radius: 30px; padding: 25px;
+            width: 100%; border: 1px solid var(--faq-border);
+            display: flex; flex-direction: column; align-items: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
         }
 
         .feature-card img { width: 100%; border-radius: 20px; margin-bottom: 20px; }
-        .feature-card h3 { margin: 10px 0; font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
-        .feature-card p { color: var(--text-sub); font-size: 14px; margin-bottom: 25px; line-height: 1.5; }
+        .feature-card h3 { margin: 10px 0; font-size: 22px; font-weight: 700; }
+        .feature-card p { color: var(--text-sub); font-size: 14px; margin-bottom: 25px; }
         
         @keyframes glowBreath {
-            0% { box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1), 0 0 10px var(--glow-mauve); }
-            50% { box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1), 0 0 25px var(--glow-mauve); }
-            100% { box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1), 0 0 10px var(--glow-mauve); }
+            0%, 100% { box-shadow: 0 4px 15px rgba(0,0,0,0.1), 0 0 10px var(--glow-mauve); }
+            50% { box-shadow: 0 4px 15px rgba(0,0,0,0.1), 0 0 20px var(--glow-mauve); }
         }
 
         #getBtn {
-            display: flex; align-items: center; justify-content: center;
             width: 100%; background: var(--accent); color: white;
             padding: 18px; border-radius: 25px; font-weight: 700; font-size: 20px;
-            cursor: pointer; border: none; transition: all 0.3s ease;
-            animation: glowBreath 3s infinite ease-in-out;
+            cursor: pointer; border: none; animation: glowBreath 3s infinite;
         }
 
+        /* TIMER CORRIGÉ */
         #timer { 
             display: none; align-items: center; justify-content: center;
-            width: 100%; background: rgba(108, 99, 255, 0.1); 
+            width: 100%; background: var(--timer-bg); 
             color: var(--accent); padding: 18px; border-radius: 25px;
-            font-weight: 700; font-size: 20px; border: 1px solid var(--glow-mauve);
+            font-weight: 700; font-size: 20px; border: 1px solid var(--toggle-border);
         }
 
-        .waiting-text { color: var(--text-sub); font-size: 13px; margin-top: 20px; display: none; opacity: 0; }
+        .waiting-text { color: var(--text-sub); font-size: 13px; margin-top: 20px; display: none; }
 
         #revealBox {
-            background: rgba(108, 99, 255, 0.03); border-radius: 20px; padding: 20px;
+            background: var(--btn-bg); border-radius: 20px; padding: 20px;
             margin-top: 20px; width: 100%; text-align: left;
-            border: 1px solid var(--glow-mauve); display: none;
-            animation: slideIn 0.5s ease forwards;
+            border: 1px solid var(--toggle-border); display: none;
         }
 
-        @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        .reveal-group { margin-bottom: 15px; }
-        .reveal-title { color: var(--accent); font-weight: 700; margin-bottom: 6px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
-        
+        .reveal-title { color: var(--accent); font-weight: 700; margin-bottom: 6px; font-size: 11px; text-transform: uppercase; }
         .copy-wrapper {
             display: flex; align-items: center; justify-content: space-between;
-            background: var(--btn-bg); padding: 12px 15px; border-radius: 12px;
+            background: var(--card-bg); padding: 12px 15px; border-radius: 12px;
             border: 1px solid var(--faq-border);
         }
 
-        .reveal-data { font-size: 15px; font-weight: 600; font-family: monospace; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-right: 10px; }
         .copy-btn { background: var(--accent); color: white; border: none; padding: 6px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; }
-        .copy-btn.copied { background: #4bb543; }
 
-        .excuse-text { color: #888; font-size: 11px; margin-top: 15px; font-weight: 400; line-height: 1.4; display: none; opacity: 0; text-align: center; }
-
-        .faq-container { width: 100%; text-align: left; }
-        .faq-item { background: var(--btn-bg); border-radius: 20px; padding: 20px; margin-bottom: 15px; border: 1px solid var(--faq-border); }
-        .faq-q { font-weight: 700; margin-bottom: 8px; color: var(--accent); font-size: 15px; }
-        .faq-a { font-size: 14px; color: var(--text-sub); line-height: 1.5; }
+        .faq-item { background: var(--btn-bg); border-radius: 20px; padding: 20px; margin-bottom: 15px; border: 1px solid var(--faq-border); text-align: left; width: 100%; }
+        .faq-q { font-weight: 700; color: var(--accent); margin-bottom: 5px; }
+        .faq-a { font-size: 14px; color: var(--text-sub); }
 
         .social-container { display: flex; flex-direction: column; gap: 12px; margin-top: 50px; width: 100%; }
         .social-btn {
             background: var(--btn-bg); color: var(--text-main); text-decoration: none;
-            padding: 16px; border-radius: 20px; display: flex;
-            align-items: center; justify-content: center; gap: 12px;
-            font-weight: 600; border: 1px solid var(--faq-border);
+            padding: 16px; border-radius: 20px; display: flex; align-items: center;
+            justify-content: center; gap: 12px; font-weight: 600; border: 1px solid var(--faq-border);
         }
-        .social-btn img { width: 24px; height: 24px; object-fit: contain; }
+        .social-btn img { width: 24px; }
 
-        footer { margin: 60px 0 40px 0; font-size: 12px; color: #777; }
+        footer { margin: 60px 0 40px 0; font-size: 12px; color: var(--text-sub); }
     </style>
 </head>
 <body>
@@ -167,12 +138,10 @@
 
     <div class="container">
         <img src="/image/BlueApple.png" class="icon-main" alt="Logo">
-        
         <h1>Apple Vip</h1>
-        <p class="desc">Exclusive access to premium apps and games.<br>Fast, secure, and always updated.</p>
+        <p class="desc">The best way to get any apps & games you want for free.<br>good, fast, and working all time.</p>
 
         <h2 class="section-title">Apple IDs</h2>
-        
         <div class="feature-card">
             <img src="/image/AppleID.png" alt="Minecraft & Apple TV">
             <h3>Minecraft & Apple TV ID</h3>
@@ -180,57 +149,30 @@
             
             <button id="getBtn">Get</button>
             <div id="timer">1:00</div>
-            
             <p class="waiting-text" id="waitingText">Please wait for the timer to finish before the Apple ID & password appear.</p>
             
             <div id="revealBox">
                 <div class="reveal-group">
                     <div class="reveal-title">Apple ID</div>
                     <div class="copy-wrapper">
-                        <div class="reveal-data" id="appleIdText">votre.email@ici.com</div>
+                        <div id="appleIdText">votre.email@ici.com</div>
                         <button class="copy-btn" onclick="copyText('appleIdText', this)">COPY</button>
                     </div>
                 </div>
-
-                <div class="reveal-group">
-                    <div class="reveal-title">Password</div>
-                    <div class="copy-wrapper">
-                        <div class="reveal-data" id="passwordText">VotreMotDePasseIci!</div>
-                        <button class="copy-btn" onclick="copyText('passwordText', this)">COPY</button>
-                    </div>
-                </div>
             </div>
-
-            <p class="excuse-text" id="excuseText">We sincerely apologize for the choice of the password. These accounts are shared and we do not manage the password selection.</p>
         </div>
 
-        <h2 class="section-title">Frequently Asked Questions</h2>
-        <div class="faq-container">
-            <div class="faq-item">
-                <div class="faq-q">How to use?</div>
-                <div class="faq-a">Sign out from the App Store, login with our VIP ID, and check your Purchased section.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-q">Is it safe?</div>
-                <div class="faq-a"><b>Yes.</b> Only use it in the App Store. Never sign into iCloud or Settings.</div>
-            </div>
+        <h2 class="section-title">FAQ</h2>
+        <div class="faq-item">
+            <div class="faq-q">How to use?</div>
+            <div class="faq-a">Sign out from the App Store, login with our VIP ID, and check your Purchased section.</div>
         </div>
 
         <div class="social-container">
-            <a href="https://www.tiktok.com/@lk_9292" class="social-btn" target="_blank">
-                <img src="/image/tiktok.png" alt="TikTok"> TikTok
-            </a>
-            <a href="https://www.instagram.com/qx.dev95" class="social-btn" target="_blank">
-                <img src="/image/instagram.png" alt="Instagram"> Instagram
-            </a>
-            <a href="https://discord.gg/keEEQ6bBSB" class="social-btn" target="_blank">
-                <img src="/image/discord.png" alt="Discord"> Join Discord
-            </a>
+            <a href="#" class="social-btn"><img src="/image/tiktok.png"> TikTok</a>
+            <a href="#" class="social-btn"><img src="/image/discord.png"> Discord</a>
         </div>
-
-        <footer>
-            &copy; 2026 Qx.dev95. All rights reserved.
-        </footer>
+        <footer>&copy; 2026 Qx.dev95.</footer>
     </div>
 
     <script>
@@ -252,40 +194,29 @@
         const timerDisplay = document.getElementById('timer');
         const revealBox = document.getElementById('revealBox');
         const waitingText = document.getElementById('waitingText');
-        const excuseText = document.getElementById('excuseText');
 
         getBtn.addEventListener('click', () => {
             getBtn.style.display = 'none';
             timerDisplay.style.display = 'flex';
             waitingText.style.display = 'block';
-            setTimeout(() => { waitingText.style.opacity = '1'; }, 50);
-
             let seconds = 60;
             const countdown = setInterval(() => {
                 seconds--;
                 timerDisplay.innerHTML = `0:${seconds < 10 ? '0' + seconds : seconds}`;
-
                 if (seconds === 0) {
                     clearInterval(countdown);
                     timerDisplay.style.display = 'none';
                     waitingText.style.display = 'none';
                     revealBox.style.display = 'block';
-                    excuseText.style.display = 'block';
-                    setTimeout(() => { excuseText.style.opacity = '1'; }, 50);
                 }
             }, 1000);
         });
 
-        function copyText(elementId, btn) {
-            const text = document.getElementById(elementId).innerText;
+        function copyText(id, btn) {
+            const text = document.getElementById(id).innerText;
             navigator.clipboard.writeText(text).then(() => {
-                const originalText = btn.innerText;
                 btn.innerText = "COPIED!";
-                btn.classList.add('copied');
-                setTimeout(() => {
-                    btn.innerText = originalText;
-                    btn.classList.remove('copied');
-                }, 2000);
+                setTimeout(() => { btn.innerText = "COPY"; }, 2000);
             });
         }
     </script>
