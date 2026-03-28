@@ -14,6 +14,7 @@
             --text-main: #ffffff;
             --text-sub: #9e9ea3;
             --accent: #6c63ff;
+            --accent-glow: rgba(108, 99, 255, 0.5);
             --btn-bg: rgba(255, 255, 255, 0.05);
         }
 
@@ -32,10 +33,7 @@
         }
 
         .container { width: 100%; max-width: 420px; text-align: center; }
-
         .icon-main { width: 90px; height: 90px; border-radius: 20px; margin-bottom: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.5); }
-        
-        /* Titre principal style Apple */
         h1 { font-size: 38px; font-weight: 800; margin: 0; letter-spacing: -1.8px; }
         .desc { color: var(--text-sub); margin: 15px 0 40px 0; font-size: 16px; line-height: 1.6; }
 
@@ -58,7 +56,7 @@
         .feature-card h3 { margin: 10px 0; font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
         .feature-card p { color: var(--text-sub); font-size: 14px; margin-bottom: 25px; line-height: 1.5; }
         
-        /* BOUTON AVEC EFFET GLOW (Lueur) */
+        /* --- HYPER-GLOW GET BUTTON --- */
         #getBtn {
             display: flex;
             align-items: center;
@@ -72,14 +70,24 @@
             font-size: 20px;
             cursor: pointer;
             border: none;
-            transition: 0.3s;
-            box-shadow: 0 0 20px rgba(108, 99, 255, 0.4); /* Lueur initiale */
+            transition: all 0.3s ease;
+            /* Lueur multicouche : interne + externe */
+            box-shadow: 
+                0 4px 15px rgba(0, 0, 0, 0.3),
+                0 0 20px var(--accent-glow),
+                inset 0 0 10px rgba(255, 255, 255, 0.2);
         }
+
         #getBtn:hover {
-            box-shadow: 0 0 30px rgba(108, 99, 255, 0.6); /* Lueur boostée au survol */
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 
+                0 8px 25px rgba(0, 0, 0, 0.4),
+                0 0 35px var(--accent-glow),
+                inset 0 0 15px rgba(255, 255, 255, 0.3);
+            filter: brightness(1.1);
         }
-        #getBtn:active { transform: scale(0.97); }
+
+        #getBtn:active { transform: scale(0.96); }
 
         #timer { 
             display: none;
@@ -93,6 +101,7 @@
             font-weight: 700;
             font-size: 20px;
             cursor: default; 
+            border: 1px solid var(--accent-glow);
         }
 
         .waiting-text {
@@ -135,7 +144,6 @@
         }
 
         .reveal-data { font-size: 15px; font-weight: 600; color: #fff; font-family: monospace; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-right: 10px; }
-
         .copy-btn { background: var(--accent); color: white; border: none; padding: 6px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; transition: 0.2s; }
         .copy-btn.copied { background: #4bb543; }
 
@@ -151,13 +159,11 @@
             text-align: center;
         }
 
-        /* FAQ */
         .faq-container { width: 100%; text-align: left; }
         .faq-item { background: var(--btn-bg); border-radius: 20px; padding: 20px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.05); }
         .faq-q { font-weight: 700; margin-bottom: 8px; color: var(--accent); font-size: 15px; }
         .faq-a { font-size: 14px; color: var(--text-sub); line-height: 1.5; }
 
-        /* SOCIAL - ESPACEMENT DE 50PX */
         .social-container { 
             display: flex; 
             flex-direction: column; 
