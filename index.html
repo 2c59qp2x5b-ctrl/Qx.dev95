@@ -34,10 +34,12 @@
         .container { width: 100%; max-width: 420px; text-align: center; }
 
         .icon-main { width: 90px; height: 90px; border-radius: 20px; margin-bottom: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.5); }
-        h1 { font-size: 36px; font-weight: 800; margin: 0; letter-spacing: -1.5px; }
+        
+        /* Titre principal style Apple */
+        h1 { font-size: 38px; font-weight: 800; margin: 0; letter-spacing: -1.8px; }
         .desc { color: var(--text-sub); margin: 15px 0 40px 0; font-size: 16px; line-height: 1.6; }
 
-        .section-title { text-align: center; font-size: 22px; font-weight: 700; margin: 30px 0 20px 0; width: 100%; }
+        .section-title { text-align: center; font-size: 24px; font-weight: 700; margin: 40px 0 20px 0; width: 100%; letter-spacing: -0.5px; }
         
         .feature-card {
             background: var(--card-bg);
@@ -53,10 +55,11 @@
         }
 
         .feature-card img { width: 100%; border-radius: 20px; margin-bottom: 20px; }
-        .feature-card h3 { margin: 10px 0; font-size: 20px; font-weight: 700; }
+        .feature-card h3 { margin: 10px 0; font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
         .feature-card p { color: var(--text-sub); font-size: 14px; margin-bottom: 25px; line-height: 1.5; }
         
-        #getBtn, #timer {
+        /* BOUTON AVEC EFFET GLOW (Lueur) */
+        #getBtn {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -69,10 +72,28 @@
             font-size: 20px;
             cursor: pointer;
             border: none;
-            transition: 0.2s;
+            transition: 0.3s;
+            box-shadow: 0 0 20px rgba(108, 99, 255, 0.4); /* Lueur initiale */
+        }
+        #getBtn:hover {
+            box-shadow: 0 0 30px rgba(108, 99, 255, 0.6); /* Lueur boostée au survol */
+            transform: translateY(-2px);
         }
         #getBtn:active { transform: scale(0.97); }
-        #timer { background: rgba(108, 99, 255, 0.15); color: var(--accent); display: none; cursor: default; }
+
+        #timer { 
+            display: none;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            background: rgba(108, 99, 255, 0.15); 
+            color: var(--accent); 
+            padding: 18px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 20px;
+            cursor: default; 
+        }
 
         .waiting-text {
             color: var(--text-sub);
@@ -113,38 +134,18 @@
             border: 1px solid rgba(255,255,255,0.05);
         }
 
-        .reveal-data { 
-            font-size: 15px; 
-            font-weight: 600; 
-            color: #fff; 
-            font-family: monospace; 
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            margin-right: 10px;
-        }
+        .reveal-data { font-size: 15px; font-weight: 600; color: #fff; font-family: monospace; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-right: 10px; }
 
-        .copy-btn {
-            background: var(--accent);
-            color: white;
-            border: none;
-            padding: 6px 10px;
-            border-radius: 8px;
-            font-size: 11px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.2s;
-        }
+        .copy-btn { background: var(--accent); color: white; border: none; padding: 6px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; transition: 0.2s; }
         .copy-btn.copied { background: #4bb543; }
 
         .excuse-text {
             color: #666;
             font-size: 11px;
             margin-top: 15px;
-            margin-bottom: 0px;
             font-weight: 400;
             line-height: 1.4;
-            display: none;
+            display: none; 
             opacity: 0;
             transition: opacity 0.5s ease;
             text-align: center;
@@ -156,12 +157,12 @@
         .faq-q { font-weight: 700; margin-bottom: 8px; color: var(--accent); font-size: 15px; }
         .faq-a { font-size: 14px; color: var(--text-sub); line-height: 1.5; }
 
-        /* Social - ESPACEMENT AJOUTÉ ICI */
+        /* SOCIAL - ESPACEMENT DE 50PX */
         .social-container { 
             display: flex; 
             flex-direction: column; 
             gap: 12px; 
-            margin-top: 50px; /* Plus d'espace entre FAQ et Réseaux */
+            margin-top: 50px; 
             width: 100%; 
         }
         .social-btn {
@@ -176,7 +177,9 @@
             gap: 12px;
             font-weight: 600;
             border: 1px solid rgba(255,255,255,0.1);
+            transition: 0.3s;
         }
+        .social-btn:hover { background: rgba(255, 255, 255, 0.1); }
         .social-btn img { width: 24px; height: 24px; object-fit: contain; }
 
         footer { margin: 60px 0 40px 0; font-size: 12px; color: #444; }
@@ -223,7 +226,7 @@
             <p class="excuse-text" id="excuseText">We sincerely apologize for the choice of the password. These accounts are shared and we do not manage the password selection.</p>
         </div>
 
-        <h2 class="section-title">FAQ</h2>
+        <h2 class="section-title">Frequently Asked Questions</h2>
         <div class="faq-container">
             <div class="faq-item">
                 <div class="faq-q">How to use?</div>
