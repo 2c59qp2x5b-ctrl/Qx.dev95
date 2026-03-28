@@ -17,7 +17,7 @@
             --btn-bg: rgba(255, 255, 255, 0.05);
         }
 
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; outline: none; }
 
         body {
             background-color: var(--bg-color);
@@ -71,6 +71,7 @@
             border: none;
             transition: 0.2s;
         }
+        #getBtn:active { transform: scale(0.97); }
         #timer { background: rgba(108, 99, 255, 0.15); color: var(--accent); display: none; cursor: default; }
 
         .waiting-text {
@@ -142,6 +143,17 @@
         .copy-btn:active { transform: scale(0.9); }
         .copy-btn.copied { background: #4bb543; }
 
+        /* MODIFICATION : STYLE DU MOT D'EXCUSE */
+        .excuse-text {
+            color: var(--text-sub);
+            font-size: 11px;
+            margin-top: 15px;
+            margin-bottom: 0px;
+            font-weight: 400;
+            line-height: 1.4;
+            text-align: center; /* Centré pour plus d'impact */
+        }
+
         /* FAQ */
         .faq-container { width: 100%; text-align: left; }
         .faq-item { background: var(--btn-bg); border-radius: 20px; padding: 20px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.05); }
@@ -181,8 +193,7 @@
         <div class="feature-card">
             <img src="/image/AppleID.png" alt="Minecraft & Apple TV">
             <h3>Minecraft & Apple TV ID</h3>
-            <p>Get Minecraft and Apple TV and more paid apps 
-for free (iOS only). Your experience is safe and reliable.</p>
+            <p>Get Minecraft and Apple TV for free (iOS only). Your experience is safe and reliable.</p>
             
             <button id="getBtn">Get</button>
             <div id="timer">1:00</div>
@@ -193,18 +204,18 @@ for free (iOS only). Your experience is safe and reliable.</p>
                 <div class="reveal-group">
                     <div class="reveal-title">Apple ID</div>
                     <div class="copy-wrapper">
-                        <div class="reveal-data" id="appleIdText">israel333300@isteal-it.com</div>
-                        <button class="copy-btn" onclick="copyText('appleIdText', this)">COPY</button>
+                        <div class="reveal-data" id="appleIdText">votre.email@ici.com</div> <button class="copy-btn" onclick="copyText('appleIdText', this)">COPY</button>
                     </div>
                 </div>
 
                 <div class="reveal-group">
                     <div class="reveal-title">Password</div>
                     <div class="copy-wrapper">
-                        <div class="reveal-data" id="passwordText">FuckAllah9]mobimeg.com</div>
-                        <button class="copy-btn" onclick="copyText('passwordText', this)">COPY</button>
+                        <div class="reveal-data" id="passwordText">VotreMotDePasseIci!</div> <button class="copy-btn" onclick="copyText('passwordText', this)">COPY</button>
                     </div>
                 </div>
+
+                <p class="excuse-text">We sincerely apologize for the choice of the password. These accounts are shared and we do not manage the password selection.</p>
             </div>
         </div>
 
