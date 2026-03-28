@@ -14,7 +14,9 @@
             --text-main: #ffffff;
             --text-sub: #9e9ea3;
             --accent: #6c63ff;
-            --accent-glow: rgba(108, 99, 255, 0.5);
+            /* Couleurs pour le Glow multicouche */
+            --glow-mauve: rgba(108, 99, 255, 0.4);
+            --glow-cyan: rgba(0, 255, 255, 0.2);
             --btn-bg: rgba(255, 255, 255, 0.05);
         }
 
@@ -56,7 +58,17 @@
         .feature-card h3 { margin: 10px 0; font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
         .feature-card p { color: var(--text-sub); font-size: 14px; margin-bottom: 25px; line-height: 1.5; }
         
-        /* --- HYPER-GLOW GET BUTTON --- */
+        /* ========================================================= */
+        /* --- GET BUTTON : AESTHETIC VIBRANT GLOW --- */
+        /* ========================================================= */
+        
+        /* 1. Animation de respiration lente (Vivant) */
+        @keyframes glowBreath {
+            0% { box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), 0 0 10px var(--glow-mauve), 0 0 1px var(--glow-cyan), inset 0 0 10px rgba(255, 255, 255, 0.1); }
+            50% { box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), 0 0 20px var(--glow-mauve), 0 0 2px var(--glow-cyan), inset 0 0 15px rgba(255, 255, 255, 0.15); }
+            100% { box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), 0 0 10px var(--glow-mauve), 0 0 1px var(--glow-cyan), inset 0 0 10px rgba(255, 255, 255, 0.1); }
+        }
+
         #getBtn {
             display: flex;
             align-items: center;
@@ -65,29 +77,52 @@
             background: var(--accent);
             color: white;
             padding: 18px;
-            border-radius: 20px;
+            /* Border-radius généreux pour le côté aesthetic doux */
+            border-radius: 25px; 
             font-weight: 700;
             font-size: 20px;
             cursor: pointer;
             border: none;
             transition: all 0.3s ease;
-            /* Lueur multicouche : interne + externe */
+            position: relative; /* Pour les superpositions */
+            
+            /* Application de la lueur multicouche (Base) */
             box-shadow: 
-                0 4px 15px rgba(0, 0, 0, 0.3),
-                0 0 20px var(--accent-glow),
-                inset 0 0 10px rgba(255, 255, 255, 0.2);
+                0 4px 15px rgba(0, 0, 0, 0.3), /* Ombre portée */
+                0 0 15px var(--glow-mauve),    /* Lueur Mauve (Ambiance) */
+                0 0 1px var(--glow-cyan),       /* Lueur Cyan (Contour fin) */
+                inset 0 0 12px rgba(255, 255, 255, 0.1); /* Lueur interne (Glossy) */
+            
+            /* Application de l'animation de respiration (Vivant) */
+            animation: glowBreath 3s infinite ease-in-out;
+        }
+
+        /* 2. Superposition pour le côté "soft-aesthetic" */
+        #getBtn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 25px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 50%, rgba(0,0,0,0.05) 100%);
+            pointer-events: none;
         }
 
         #getBtn:hover {
-            transform: translateY(-3px);
+            transform: translateY(-4px) scale(1.02);
+            /* Lueur intensifiée au survol (Boost Aesthetic) */
             box-shadow: 
-                0 8px 25px rgba(0, 0, 0, 0.4),
-                0 0 35px var(--accent-glow),
-                inset 0 0 15px rgba(255, 255, 255, 0.3);
+                0 10px 25px rgba(0, 0, 0, 0.4),
+                0 0 35px var(--glow-mauve),    /* Mauve plus large */
+                0 0 5px var(--glow-cyan),       /* Cyan plus présent */
+                inset 0 0 20px rgba(255, 255, 255, 0.2);
+            /* On arrête l'animation pour un feedback plus net */
+            animation: none; 
             filter: brightness(1.1);
         }
 
-        #getBtn:active { transform: scale(0.96); }
+        #getBtn:active { transform: scale(0.96) translateY(-2px); transition: 0.1s; }
+
+        /* ========================================================= */
 
         #timer { 
             display: none;
@@ -97,11 +132,11 @@
             background: rgba(108, 99, 255, 0.15); 
             color: var(--accent); 
             padding: 18px;
-            border-radius: 20px;
+            border-radius: 25px;
             font-weight: 700;
             font-size: 20px;
             cursor: default; 
-            border: 1px solid var(--accent-glow);
+            border: 1px solid var(--glow-mauve);
         }
 
         .waiting-text {
