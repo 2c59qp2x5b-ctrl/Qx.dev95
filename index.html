@@ -83,7 +83,6 @@
             transition: opacity 0.5s ease;
         }
 
-        /* --- Reveal Box & Copy Buttons --- */
         #revealBox {
             background: rgba(108, 99, 255, 0.05);
             border-radius: 20px;
@@ -139,17 +138,17 @@
         .copy-btn:active { transform: scale(0.9); }
         .copy-btn.copied { background: #4bb543; }
 
-        /* NOUVEAU STYLE DU MOT D'EXCUSE (Hors box violette) */
         .excuse-text {
-            color: #666; /* Un gris encore plus discret */
+            color: #666;
             font-size: 11px;
             margin-top: 15px;
             margin-bottom: 0px;
             font-weight: 400;
             line-height: 1.4;
-            display: none; /* Apparaît en même temps que le timer */
+            display: none; /* Caché au début */
             opacity: 0;
             transition: opacity 0.5s ease;
+            text-align: center;
         }
 
         /* FAQ */
@@ -198,23 +197,25 @@
             
             <p class="waiting-text" id="waitingText">Please wait for the timer to finish before the Apple ID & password appear.</p>
             
-            <p class="excuse-text" id="excuseText">We sincerely apologize for the choice of the password. These accounts are shared and we do not manage the password selection.</p>
-
             <div id="revealBox">
                 <div class="reveal-group">
                     <div class="reveal-title">Apple ID</div>
                     <div class="copy-wrapper">
-                        <div class="reveal-data" id="appleIdText">votre.email@ici.com</div> <button class="copy-btn" onclick="copyText('appleIdText', this)">COPY</button>
+                        <div class="reveal-data" id="appleIdText">votre.email@ici.com</div>
+                        <button class="copy-btn" onclick="copyText('appleIdText', this)">COPY</button>
                     </div>
                 </div>
 
                 <div class="reveal-group">
                     <div class="reveal-title">Password</div>
                     <div class="copy-wrapper">
-                        <div class="reveal-data" id="passwordText">VotreMotDePasseIci!</div> <button class="copy-btn" onclick="copyText('passwordText', this)">COPY</button>
+                        <div class="reveal-data" id="passwordText">VotreMotDePasseIci!</div>
+                        <button class="copy-btn" onclick="copyText('passwordText', this)">COPY</button>
                     </div>
                 </div>
             </div>
+
+            <p class="excuse-text" id="excuseText">We sincerely apologize for the choice of the password. These accounts are shared and we do not manage the password selection.</p>
         </div>
 
         <h2 class="section-title">FAQ</h2>
@@ -257,19 +258,11 @@
         const waitingText = document.getElementById('waitingText');
         const excuseText = document.getElementById('excuseText');
 
-        // Timer Script
         getBtn.addEventListener('click', () => {
             getBtn.style.display = 'none';
             timerDisplay.style.display = 'flex';
-            
-            // On affiche les deux textes d'un coup (waiting et excuse)
             waitingText.style.display = 'block';
-            excuseText.style.display = 'block';
-            
-            setTimeout(() => {
-                waitingText.style.opacity = '1';
-                excuseText.style.opacity = '1';
-            }, 50);
+            setTimeout(() => { waitingText.style.opacity = '1'; }, 50);
 
             let seconds = 60;
             const countdown = setInterval(() => {
@@ -283,20 +276,20 @@
                     timerDisplay.style.display = 'none';
                     waitingText.style.display = 'none';
                     
-                    // Le revealBox apparaît. Le texte d'excuse est DÉJÀ là, au-dessus.
+                    // Tout s'affiche à la fin du timer
                     revealBox.style.display = 'block';
+                    excuseText.style.display = 'block';
+                    setTimeout(() => { excuseText.style.opacity = '1'; }, 50);
                 }
             }, 1000);
         });
 
-        // Copy Function
         function copyText(elementId, btn) {
             const text = document.getElementById(elementId).innerText;
             navigator.clipboard.writeText(text).then(() => {
                 const originalText = btn.innerText;
                 btn.innerText = "COPIED!";
                 btn.classList.add('copied');
-                
                 setTimeout(() => {
                     btn.innerText = originalText;
                     btn.classList.remove('copied');
