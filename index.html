@@ -22,7 +22,7 @@
             --toggle-border: rgba(255,255,255,0.1);
         }
 
-        /* THÈME CLAIR (Ajusté selon tes captures) */
+        /* THÈME CLAIR */
         [data-theme="light"] {
             --bg-color: #f5f7ff; 
             --card-bg: #eef2ff; 
@@ -115,11 +115,12 @@
 
         .copy-btn { background: var(--accent); color: white; border: none; padding: 6px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; }
 
-        .excuse-text { color: var(--text-sub); font-size: 12px; margin-top: 15px; font-style: italic; display: none; }
+        /* REPARATION : PLUS D'ITALIQUE ICI */
+        .excuse-text { color: var(--text-sub); font-size: 12px; margin-top: 15px; display: none; line-height: 1.4; }
 
         .faq-item { background: var(--card-bg); border-radius: 25px; padding: 20px; margin-bottom: 15px; border: 1px solid var(--faq-border); text-align: left; width: 100%; }
-        .faq-q { font-weight: 700; color: var(--accent); margin-bottom: 5px; }
-        .faq-a { font-size: 14px; color: var(--text-sub); }
+        .faq-q { font-weight: 700; color: var(--accent); margin-bottom: 8px; font-size: 16px; }
+        .faq-a { font-size: 14px; color: var(--text-sub); line-height: 1.5; }
 
         .social-container { display: flex; flex-direction: column; gap: 12px; margin-top: 50px; width: 100%; }
         .social-btn {
@@ -140,15 +141,17 @@
 
     <div class="container">
         <img src="/image/BlueApple.png" class="icon-main" alt="Logo">
-        <h1>Apple Vip
-        </h1>
-        <p class="desc">The best way to get any apps & games you want for free.<br>good, fast, and working all time.</p>
+        <h1>BlueApple</h1>
+        <p class="desc">
+            <b>The best way to get any apps & games you want for free.</b><br>
+            Fast, reliable, and working perfectly 24/7 for all our VIP members.
+        </p>
 
         <h2 class="section-title">Apple IDs</h2>
         <div class="feature-card">
             <img src="/image/AppleID.png" alt="Minecraft & Apple TV">
             <h3>Minecraft & Apple TV ID</h3>
-            <p>Get Minecraft and Apple TV for free (iOS only). Your experience is safe and reliable.</p>
+            <p>Get instant access to Minecraft and Apple TV for free. This service is exclusive to iOS users and guaranteed safe.</p>
             
             <button id="getBtn">Get</button>
             <div id="timer">1:00</div>
@@ -166,21 +169,24 @@
                     <button class="copy-btn" onclick="copyText('passwordText', this)">COPY</button>
                 </div>
             </div>
-            <p class="excuse-text" id="excuseText">We sincerely apologize for the choice of the password. These accounts are shared and we do not manage the password selection.</p>
+            <p class="excuse-text" id="excuseText">We sincerely apologize for the choice of the password. These accounts are shared and we do not manage the password selection ourselves.</p>
         </div>
 
         <h2 class="section-title">Frequently Asked Questions</h2>
+        
         <div class="faq-item">
-            <div class="faq-q">How to use?</div>
-            <div class="faq-a">Sign out from the App Store, login with our VIP ID, and check your Purchased section.</div>
+            <div class="faq-q">How to use the Apple ID?</div>
+            <div class="faq-a">Simply sign out from your App Store settings, login with our VIP ID, and go to your "Purchased" section to download your favorite games.</div>
         </div>
+        
         <div class="faq-item">
-            <div class="faq-q">Is it safe?</div>
-            <div class="faq-a">Yes. Only use it in the App Store. Never sign into iCloud or Settings.</div>
+            <div class="faq-q">Is it safe for my device?</div>
+            <div class="faq-a">Absolutely. Our IDs are intended for use in the App Store only. Never sign into iCloud or your main device settings to ensure total safety and privacy.</div>
         </div>
+        
         <div class="faq-item">
-            <div class="faq-q">Account locked?</div>
-            <div class="faq-a">IDs are reset every 24 hours. If it's locked, just check back later.</div>
+            <div class="faq-q">What if the account is locked?</div>
+            <div class="faq-a">Our VIP accounts are automatically reset and updated every 24 hours. If an ID appears locked, please check back later for a fresh and working login.</div>
         </div>
 
         <div class="social-container">
@@ -188,7 +194,7 @@
             <a href="https://www.instagram.com/qx.dev95" target="_blank" class="social-btn"><img src="/image/instagram.png"> Instagram</a>
             <a href="https://discord.gg/keEEQ6bBSB" target="_blank" class="social-btn"><img src="/image/discord.png"> Discord</a>
         </div>
-        <footer>&copy; 2026 Qx.dev95.</footer>
+        <footer>© 2026 Qx.dev95. All rights reserved.</footer>
     </div>
 
     <script>
