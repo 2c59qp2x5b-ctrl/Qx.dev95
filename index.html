@@ -49,6 +49,9 @@
             flex-direction: column;
             align-items: center;
             box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+            
+            /* MODIFICATION 1 : AJOUT DE L'ANIMATION DE TAILLE */
+            transition: all 0.3s ease-in-out; 
         }
 
         .feature-card img { width: 100%; border-radius: 20px; margin-bottom: 20px; }
@@ -72,6 +75,18 @@
         }
         #getBtn:active { transform: scale(0.97); }
         #timer { background: rgba(108, 99, 255, 0.15); color: var(--accent); display: none; cursor: default; }
+
+        /* MODIFICATION 2 : STYLE DU NOUVEAU TEXTE D'ATTENTE */
+        .waiting-text {
+            color: var(--text-sub);
+            font-size: 13px;
+            margin-top: 20px;
+            margin-bottom: 0px !important; /* Pour ne pas ajouter d'espace en bas */
+            display: none; /* Caché par défaut */
+            font-weight: 400;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
 
         #revealBox {
             background: rgba(255, 255, 255, 0.03);
@@ -106,6 +121,7 @@
             border: 1px solid rgba(255,255,255,0.1);
             transition: 0.2s;
         }
+        .social-btn:active { transform: scale(0.98); background: rgba(255,255,255,0.1); }
         .social-btn img { width: 24px; height: 24px; object-fit: contain; }
 
         footer { margin: 60px 0 40px 0; font-size: 12px; color: #444; }
@@ -128,6 +144,8 @@
             
             <button id="getBtn">Get</button>
             <div id="timer">1:00</div>
+            
+            <p class="waiting-text" id="waitingText">Please wait for the timer to finish before the Apple ID & password appear.</p>
             
             <div id="revealBox">
                 <div class="reveal-title">Apple ID</div>
@@ -174,10 +192,17 @@
         const getBtn = document.getElementById('getBtn');
         const timerDisplay = document.getElementById('timer');
         const revealBox = document.getElementById('revealBox');
+        
+        /* MODIFICATION 4 : RÉCUPÉRATION DU NOUVEAU TEXTE */
+        const waitingText = document.getElementById('waitingText');
 
         getBtn.addEventListener('click', () => {
             getBtn.style.display = 'none';
             timerDisplay.style.display = 'flex';
+            
+            /* MODIFICATION 5 : AFFICHAGE DU TEXTE ET ANIMATION */
+            waitingText.style.display = 'block'; // Affiche le texte
+            setTimeout(() => waitingText.style.opacity = '1', 50); // Le fait apparaître en douceur
 
             let seconds = 60;
             const countdown = setInterval(() => {
@@ -189,7 +214,11 @@
                 if (seconds === 0) {
                     clearInterval(countdown);
                     timerDisplay.style.display = 'none';
-                    revealBox.style.display = 'block';
+                    
+                    /* MODIFICATION 6 : CACHAGE DU TEXTE */
+                    waitingText.style.display = 'none'; // Cache le texte d'attente
+                    
+                    revealBox.style.display = 'block'; // Révèle les identifiants
                 }
             }, 1000);
         });
