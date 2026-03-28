@@ -32,7 +32,6 @@
         }
 
         .container { width: 100%; max-width: 420px; text-align: center; }
-
         .icon-main { width: 90px; height: 90px; border-radius: 20px; margin-bottom: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.5); }
         h1 { font-size: 36px; font-weight: 800; margin: 0; letter-spacing: -1.5px; }
         .desc { color: var(--text-sub); margin: 15px 0 40px 0; font-size: 16px; line-height: 1.6; }
@@ -71,7 +70,6 @@
             border: none;
             transition: 0.2s;
         }
-        #getBtn:active { transform: scale(0.97); }
         #timer { background: rgba(108, 99, 255, 0.15); color: var(--accent); display: none; cursor: default; }
 
         .waiting-text {
@@ -83,7 +81,6 @@
             transition: opacity 0.5s ease;
         }
 
-        /* --- Reveal Box & Copy Buttons --- */
         #revealBox {
             background: rgba(108, 99, 255, 0.05);
             border-radius: 20px;
@@ -136,22 +133,19 @@
             cursor: pointer;
             transition: 0.2s;
         }
-        .copy-btn:active { transform: scale(0.9); }
         .copy-btn.copied { background: #4bb543; }
 
-        /* NOUVEAU STYLE DU MOT D'EXCUSE (Hors box violette) */
+        /* STYLE DU MOT D'EXCUSE */
         .excuse-text {
-            color: #666; /* Un gris encore plus discret */
+            color: #666;
             font-size: 11px;
             margin-top: 15px;
             font-weight: 400;
             line-height: 1.4;
-            display: none; /* Apparaît en même temps que le timer */
-            opacity: 0;
-            transition: opacity 0.5s ease;
+            text-align: center;
         }
 
-        /* FAQ & Footer */
+        /* FAQ & Social */
         .faq-container { width: 100%; text-align: left; }
         .faq-item { background: var(--btn-bg); border-radius: 20px; padding: 20px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.05); }
         .faq-q { font-weight: 700; margin-bottom: 8px; color: var(--accent); font-size: 15px; }
@@ -193,8 +187,6 @@
             <div id="timer">1:00</div>
             
             <p class="waiting-text" id="waitingText">Please wait for the timer to finish before the Apple ID & password appear.</p>
-            
-            <p class="excuse-text" id="excuseText">We sincerely apologize for the choice of the password. These accounts are shared and we do not manage the password selection.</p>
 
             <div id="revealBox">
                 <div class="reveal-group">
@@ -212,6 +204,8 @@
                         <button class="copy-btn" onclick="copyText('passwordText', this)">COPY</button>
                     </div>
                 </div>
+
+                <p class="excuse-text">We sincerely apologize for the choice of the password. These accounts are shared and we do not manage the password selection.</p>
             </div>
         </div>
 
@@ -253,20 +247,12 @@
         const timerDisplay = document.getElementById('timer');
         const revealBox = document.getElementById('revealBox');
         const waitingText = document.getElementById('waitingText');
-        const excuseText = document.getElementById('excuseText');
 
         getBtn.addEventListener('click', () => {
             getBtn.style.display = 'none';
             timerDisplay.style.display = 'flex';
-            
-            // On affiche les deux textes d'un coup
             waitingText.style.display = 'block';
-            excuseText.style.display = 'block';
-            
-            setTimeout(() => {
-                waitingText.style.opacity = '1';
-                excuseText.style.opacity = '1';
-            }, 50);
+            setTimeout(() => { waitingText.style.opacity = '1'; }, 50);
 
             let seconds = 60;
             const countdown = setInterval(() => {
@@ -279,7 +265,6 @@
                     clearInterval(countdown);
                     timerDisplay.style.display = 'none';
                     waitingText.style.display = 'none';
-                    // Le mot d'excuse reste visible même quand le revealBox arrive
                     revealBox.style.display = 'block';
                 }
             }, 1000);
