@@ -3,19 +3,22 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Apple VIP Store</title>
+    <title>Apple Vip</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg-color: #0d0e11; /* Fond noir profond */
-            --card-bg: #1d1e22;  /* Couleur des blocs de cartes */
+            --bg-color: #0d0e11;
+            --card-bg: #1d1e22;
             --text-main: #ffffff;
             --text-sub: #9e9ea3;
-            --accent: #6c63ff;   /* Violet clair iOS pour le timer */
+            --accent: #6c63ff;
             --btn-bg: rgba(255, 255, 255, 0.05);
         }
+
+        /* Reset pour éviter les décalages */
+        * { box-sizing: border-box; }
 
         body {
             background-color: var(--bg-color);
@@ -26,75 +29,97 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            overflow-x: hidden; /* Évite le scroll horizontal */
         }
 
-        .container { width: 100%; max-width: 480px; text-align: center; }
+        .container { width: 100%; max-width: 420px; text-align: center; }
 
         /* Header */
         .icon-main { width: 90px; height: 90px; border-radius: 20px; margin-bottom: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.5); }
         h1 { font-size: 36px; font-weight: 800; margin: 0; letter-spacing: -1.5px; }
         .desc { color: var(--text-sub); margin: 15px 0 40px 0; font-size: 16px; line-height: 1.6; }
 
-        /* Cartes d'offres (Identique à ton brouillon PicsArt) */
-        .section-title { text-align: left; font-size: 20px; font-weight: 700; margin-bottom: 15px; }
+        /* Section Apple IDs */
+        .section-title { text-align: left; font-size: 22px; font-weight: 700; margin-bottom: 15px; width: 100%; }
         
         .feature-card {
             background: var(--card-bg);
             border-radius: 30px;
             padding: 25px;
             margin-bottom: 30px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            width: 100%; /* S'assure que la carte prend toute la largeur du container */
             border: 1px solid rgba(255,255,255,0.04);
-            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centre tout le contenu de la carte */
         }
 
         .feature-card img { width: 100%; border-radius: 20px; margin-bottom: 20px; }
         .feature-card h3 { margin: 10px 0; font-size: 20px; font-weight: 700; }
         .feature-card p { color: var(--text-sub); font-size: 14px; margin-bottom: 25px; line-height: 1.5; }
         
-        /* Bouton Get et Timer */
+        /* Bouton & Timer Centrés */
         #getBtn, #timer {
-            display: block; width: 100%; background: var(--accent); color: white;
-            text-decoration: none; padding: 18px; border-radius: 18px;
-            font-weight: 700; font-size: 18px; cursor: pointer; transition: 0.2s; border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%; /* Prend toute la largeur disponible dans la carte */
+            background: var(--accent);
+            color: white;
+            padding: 18px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 20px;
+            cursor: pointer;
+            border: none;
+            transition: 0.2s;
+            margin: 0 auto; /* Centrage de sécurité */
         }
-        #getBtn:active { transform: scale(0.97); }
 
-        /* Timer (caché au début) */
-        #timer { background: rgba(108, 99, 255, 0.2); color: var(--accent); font-family: monospace; font-size: 24px; display: none; cursor: default; }
+        #timer { 
+            background: rgba(108, 99, 255, 0.15); 
+            color: var(--accent); 
+            font-family: 'Inter', sans-serif; /* Pour garder le même style que le titre */
+            display: none; 
+        }
 
-        /* Bloc Révélation de l'Apple ID (caché au début) */
         #revealBox {
-            background: var(--btn-bg); border-radius: 18px; padding: 20px; margin-top: 20px;
-            text-align: left; border: 1px solid rgba(108, 99, 255, 0.3); display: none;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 20px;
+            margin-top: 20px;
+            width: 100%;
+            text-align: left;
+            border: 1px solid rgba(108, 99, 255, 0.2);
+            display: none;
         }
-        .reveal-title { color: var(--accent); font-weight: 700; margin-bottom: 8px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
-        .reveal-data { font-size: 16px; margin-bottom: 12px; font-family: monospace; letter-spacing: 0.5px; }
+        .reveal-title { color: var(--accent); font-weight: 700; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; }
+        .reveal-data { font-size: 16px; margin-bottom: 15px; font-weight: 600; color: #fff; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <img src="/image/BlueApple.png" class="icon-main" alt="Logo VIP">
+        <img src="/image/BlueApple.png" class="icon-main" alt="Logo">
         
-        <h1>Apple VIP Store</h1>
+        <h1>Apple Vip</h1>
         <p class="desc">The best way to get any apps & games you want for free.<br>Good, fast, and working all time.</p>
 
         <h2 class="section-title">Apple IDs</h2>
+        
         <div class="feature-card">
-            <img src="/image/AppleID.png" alt="Minecraft & Apple TV Offer">
+            <img src="/image/AppleID.png" alt="Minecraft & Apple TV">
             <h3>Minecraft & Apple TV ID</h3>
             <p>Get Minecraft and Apple TV for free (iOS only). Your experience is safe and reliable.</p>
             
             <button id="getBtn">Get</button>
-            
             <div id="timer">1:00</div>
             
             <div id="revealBox">
                 <div class="reveal-title">Apple ID</div>
-                <div class="reveal-data">test@test.com</div>
+                <div class="reveal-data">appleid@example.com</div>
                 <div class="reveal-title">Password</div>
-                <div class="reveal-data">Password123!</div>
+                <div class="reveal-data">QxDev95!2026</div>
             </div>
         </div>
     </div>
@@ -105,28 +130,22 @@
         const revealBox = document.getElementById('revealBox');
 
         getBtn.addEventListener('click', () => {
-            getBtn.style.display = 'none'; // Cache le bouton
-            timerDisplay.style.display = 'block'; // Affiche le timer
+            getBtn.style.display = 'none';
+            timerDisplay.style.display = 'flex'; // Utilisation de flex pour garder le centrage
 
             let seconds = 60;
-
             const countdown = setInterval(() => {
                 seconds--;
-
-                let minutes = Math.floor(seconds / 60);
-                let remainingSeconds = seconds % 60;
-
-                // Ajoute un '0' devant si c'est inférieur à 10s (ex: 0:09)
-                remainingSeconds = remainingSeconds < 10 ? '0' + remainingSeconds : remainingSeconds;
-
-                timerDisplay.innerHTML = `${minutes}:${remainingSeconds}`;
+                let mins = Math.floor(seconds / 60);
+                let secs = seconds % 60;
+                timerDisplay.innerHTML = `${mins}:${secs < 10 ? '0' + secs : secs}`;
 
                 if (seconds === 0) {
                     clearInterval(countdown);
-                    timerDisplay.style.display = 'none'; // Cache le timer
-                    revealBox.style.display = 'block'; // Révèle l'ID
+                    timerDisplay.style.display = 'none';
+                    revealBox.style.display = 'block';
                 }
-            }, 1000); // Met à jour toutes les secondes
+            }, 1000);
         });
     </script>
 </body>
