@@ -101,10 +101,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .reveal-group {
-            margin-bottom: 15px;
-        }
-
+        .reveal-group { margin-bottom: 15px; }
         .reveal-title { color: var(--accent); font-weight: 700; margin-bottom: 6px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
         
         .copy-wrapper {
@@ -138,29 +135,27 @@
             font-weight: 700;
             cursor: pointer;
             transition: 0.2s;
-            flex-shrink: 0;
         }
         .copy-btn:active { transform: scale(0.9); }
         .copy-btn.copied { background: #4bb543; }
 
-        /* MODIFICATION : STYLE DU MOT D'EXCUSE */
+        /* NOUVEAU STYLE DU MOT D'EXCUSE (Hors box violette) */
         .excuse-text {
-            color: var(--text-sub);
+            color: #666; /* Un gris encore plus discret */
             font-size: 11px;
             margin-top: 15px;
-            margin-bottom: 0px;
             font-weight: 400;
             line-height: 1.4;
-            text-align: center; /* Centré pour plus d'impact */
+            display: none; /* Apparaît en même temps que le timer */
+            opacity: 0;
+            transition: opacity 0.5s ease;
         }
 
-        /* FAQ */
+        /* FAQ & Footer */
         .faq-container { width: 100%; text-align: left; }
         .faq-item { background: var(--btn-bg); border-radius: 20px; padding: 20px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.05); }
         .faq-q { font-weight: 700; margin-bottom: 8px; color: var(--accent); font-size: 15px; }
         .faq-a { font-size: 14px; color: var(--text-sub); line-height: 1.5; }
-
-        /* Social */
         .social-container { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; width: 100%; }
         .social-btn {
             background: var(--btn-bg);
@@ -176,7 +171,6 @@
             border: 1px solid rgba(255,255,255,0.1);
         }
         .social-btn img { width: 24px; height: 24px; object-fit: contain; }
-
         footer { margin: 60px 0 40px 0; font-size: 12px; color: #444; }
     </style>
 </head>
@@ -200,22 +194,24 @@
             
             <p class="waiting-text" id="waitingText">Please wait for the timer to finish before the Apple ID & password appear.</p>
             
+            <p class="excuse-text" id="excuseText">We sincerely apologize for the choice of the password. These accounts are shared and we do not manage the password selection.</p>
+
             <div id="revealBox">
                 <div class="reveal-group">
                     <div class="reveal-title">Apple ID</div>
                     <div class="copy-wrapper">
-                        <div class="reveal-data" id="appleIdText">votre.email@ici.com</div> <button class="copy-btn" onclick="copyText('appleIdText', this)">COPY</button>
+                        <div class="reveal-data" id="appleIdText">votre.email@ici.com</div>
+                        <button class="copy-btn" onclick="copyText('appleIdText', this)">COPY</button>
                     </div>
                 </div>
 
                 <div class="reveal-group">
                     <div class="reveal-title">Password</div>
                     <div class="copy-wrapper">
-                        <div class="reveal-data" id="passwordText">VotreMotDePasseIci!</div> <button class="copy-btn" onclick="copyText('passwordText', this)">COPY</button>
+                        <div class="reveal-data" id="passwordText">VotreMotDePasseIci!</div>
+                        <button class="copy-btn" onclick="copyText('passwordText', this)">COPY</button>
                     </div>
                 </div>
-
-                <p class="excuse-text">We sincerely apologize for the choice of the password. These accounts are shared and we do not manage the password selection.</p>
             </div>
         </div>
 
@@ -257,13 +253,20 @@
         const timerDisplay = document.getElementById('timer');
         const revealBox = document.getElementById('revealBox');
         const waitingText = document.getElementById('waitingText');
+        const excuseText = document.getElementById('excuseText');
 
-        // Timer Script
         getBtn.addEventListener('click', () => {
             getBtn.style.display = 'none';
             timerDisplay.style.display = 'flex';
+            
+            // On affiche les deux textes d'un coup
             waitingText.style.display = 'block';
-            setTimeout(() => waitingText.style.opacity = '1', 50);
+            excuseText.style.display = 'block';
+            
+            setTimeout(() => {
+                waitingText.style.opacity = '1';
+                excuseText.style.opacity = '1';
+            }, 50);
 
             let seconds = 60;
             const countdown = setInterval(() => {
@@ -276,19 +279,18 @@
                     clearInterval(countdown);
                     timerDisplay.style.display = 'none';
                     waitingText.style.display = 'none';
+                    // Le mot d'excuse reste visible même quand le revealBox arrive
                     revealBox.style.display = 'block';
                 }
             }, 1000);
         });
 
-        // Copy Function
         function copyText(elementId, btn) {
             const text = document.getElementById(elementId).innerText;
             navigator.clipboard.writeText(text).then(() => {
                 const originalText = btn.innerText;
                 btn.innerText = "COPIED!";
                 btn.classList.add('copied');
-                
                 setTimeout(() => {
                     btn.innerText = originalText;
                     btn.classList.remove('copied');
