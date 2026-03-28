@@ -135,7 +135,6 @@
             cursor: pointer;
             transition: 0.2s;
         }
-        .copy-btn:active { transform: scale(0.9); }
         .copy-btn.copied { background: #4bb543; }
 
         .excuse-text {
@@ -145,7 +144,7 @@
             margin-bottom: 0px;
             font-weight: 400;
             line-height: 1.4;
-            display: none; /* Caché au début */
+            display: none;
             opacity: 0;
             transition: opacity 0.5s ease;
             text-align: center;
@@ -157,8 +156,14 @@
         .faq-q { font-weight: 700; margin-bottom: 8px; color: var(--accent); font-size: 15px; }
         .faq-a { font-size: 14px; color: var(--text-sub); line-height: 1.5; }
 
-        /* Social */
-        .social-container { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; width: 100%; }
+        /* Social - ESPACEMENT AJOUTÉ ICI */
+        .social-container { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 12px; 
+            margin-top: 50px; /* Plus d'espace entre FAQ et Réseaux */
+            width: 100%; 
+        }
         .social-btn {
             background: var(--btn-bg);
             color: white;
@@ -276,7 +281,6 @@
                     timerDisplay.style.display = 'none';
                     waitingText.style.display = 'none';
                     
-                    // Tout s'affiche à la fin du timer
                     revealBox.style.display = 'block';
                     excuseText.style.display = 'block';
                     setTimeout(() => { excuseText.style.opacity = '1'; }, 50);
