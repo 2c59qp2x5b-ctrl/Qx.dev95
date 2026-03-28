@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -33,37 +33,28 @@
 
         .container { width: 100%; max-width: 420px; text-align: center; }
 
-        /* Header */
         .icon-main { width: 90px; height: 90px; border-radius: 20px; margin-bottom: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.5); }
         h1 { font-size: 36px; font-weight: 800; margin: 0; letter-spacing: -1.5px; }
         .desc { color: var(--text-sub); margin: 15px 0 40px 0; font-size: 16px; line-height: 1.6; }
 
-        /* Section Apple IDs (CENTRÉ) */
-        .section-title { 
-            text-align: center; /* Changé de left à center */
-            font-size: 22px; 
-            font-weight: 700; 
-            margin-bottom: 20px; 
-            width: 100%; 
-        }
+        .section-title { text-align: center; font-size: 22px; font-weight: 700; margin: 30px 0 20px 0; width: 100%; }
         
         .feature-card {
             background: var(--card-bg);
             border-radius: 30px;
             padding: 25px;
-            margin-bottom: 40px;
             width: 100%;
             border: 1px solid rgba(255,255,255,0.04);
             display: flex;
             flex-direction: column;
             align-items: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
         }
 
         .feature-card img { width: 100%; border-radius: 20px; margin-bottom: 20px; }
         .feature-card h3 { margin: 10px 0; font-size: 20px; font-weight: 700; }
         .feature-card p { color: var(--text-sub); font-size: 14px; margin-bottom: 25px; line-height: 1.5; }
         
-        /* Bouton & Timer */
         #getBtn, #timer {
             display: flex;
             align-items: center;
@@ -79,9 +70,9 @@
             border: none;
             transition: 0.2s;
         }
-        #timer { background: rgba(108, 99, 255, 0.15); color: var(--accent); display: none; }
+        #getBtn:active { transform: scale(0.97); }
+        #timer { background: rgba(108, 99, 255, 0.15); color: var(--accent); display: none; cursor: default; }
 
-        /* Bloc Révélation */
         #revealBox {
             background: rgba(255, 255, 255, 0.03);
             border-radius: 20px;
@@ -93,16 +84,14 @@
             display: none;
         }
         .reveal-title { color: var(--accent); font-weight: 700; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; }
-        .reveal-data { font-size: 16px; margin-bottom: 15px; font-weight: 600; color: #fff; }
+        .reveal-data { font-size: 16px; margin-bottom: 15px; font-weight: 600; color: #fff; font-family: monospace; }
 
-        /* FAQ Section */
-        .faq-container { margin-top: 20px; width: 100%; text-align: left; }
+        .faq-container { width: 100%; text-align: left; }
         .faq-item { background: var(--btn-bg); border-radius: 20px; padding: 20px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.05); }
         .faq-q { font-weight: 700; margin-bottom: 8px; color: var(--accent); font-size: 15px; }
         .faq-a { font-size: 14px; color: var(--text-sub); line-height: 1.5; }
 
-        /* Social Redirect Buttons */
-        .social-container { display: flex; flex-direction: column; gap: 12px; margin-top: 40px; width: 100%; }
+        .social-container { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; width: 100%; }
         .social-btn {
             background: var(--btn-bg);
             color: white;
@@ -117,10 +106,9 @@
             border: 1px solid rgba(255,255,255,0.1);
             transition: 0.2s;
         }
-        .social-btn img { width: 22px; height: 22px; }
-        .social-btn:active { transform: scale(0.98); background: rgba(255,255,255,0.1); }
+        .social-btn img { width: 24px; height: 24px; object-fit: contain; }
 
-        footer { margin-top: 60px; font-size: 12px; color: #444; margin-bottom: 40px; }
+        footer { margin: 60px 0 40px 0; font-size: 12px; color: #444; }
     </style>
 </head>
 <body>
@@ -143,30 +131,34 @@
             
             <div id="revealBox">
                 <div class="reveal-title">Apple ID</div>
-                <div class="reveal-data">qxdev@apple.com</div>
+                <div class="reveal-data">appleid@example.com</div>
                 <div class="reveal-title">Password</div>
-                <div class="reveal-data">QxVip95!2026</div>
+                <div class="reveal-data">Password123!</div>
             </div>
         </div>
 
         <h2 class="section-title">FAQ</h2>
         <div class="faq-container">
             <div class="faq-item">
-                <div class="faq-q">How to use the apple id</div>
-                <div class="faq-a">Login to the Apple ID, enter the App Store, click your profile, go to "Purchases", find "OMARKXOX" and download your games.</div>
+                <div class="faq-q">How to use?</div>
+                <div class="faq-a">Sign out from the App Store, login with our VIP ID, and check your Purchased section to download everything.</div>
             </div>
             <div class="faq-item">
-                <div class="faq-q">What if the ID is locked?</div>
-                <div class="faq-a">The ID is updated regularly. If locked, please wait 1 to 24 hours for a reset.</div>
+                <div class="faq-q">Is it safe?</div>
+                <div class="faq-a"><b>Yes.</b> Only use it in the App Store. Never sign into iCloud or Settings. Your device remains 100% secure.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">Account locked?</div>
+                <div class="faq-a">IDs are reset every 24 hours. If it's locked, just check back later or join our Discord for updates.</div>
             </div>
         </div>
 
         <div class="social-container">
             <a href="https://www.tiktok.com/@lk_9292?_r=1&_t=ZN-9549Avkwros" class="social-btn" target="_blank">
-                <img src="/image/tiktok.png" alt="TikTok"> TikTok
+                <img src="/image/tiktok.PNG" alt="TikTok"> TikTok
             </a>
             <a href="https://www.instagram.com/qx.dev95" class="social-btn" target="_blank">
-                <img src="/image/instagram.png" alt="Instagram"> Instagram
+                <img src="/image/instagram.PNG" alt="Instagram"> Instagram
             </a>
             <a href="https://discord.gg/keEEQ6bBSB" class="social-btn" target="_blank">
                 <img src="/image/discord.png" alt="Discord"> Join Discord
