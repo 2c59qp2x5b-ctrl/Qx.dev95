@@ -3,25 +3,24 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Qx.dev95 | Apple IDs</title>
+    <title>Apple VIP Store</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
     <style>
-        /* --- DESIGN QX.DEV95 --- */
         :root {
-            --bg-color: #0b0d11; /* Fond noir profond */
-            --card-bg: #1c1c1e;  /* Couleur des blocs */
-            --text-color: #ffffff;
-            --sub-text: #8e8e93;
-            --accent-color: #5e5ce6; /* Couleur violette iOS */
+            --bg-color: #0d0e11; /* Fond noir profond */
+            --card-bg: #1d1e22;  /* Couleur des blocs de cartes */
+            --text-main: #ffffff;
+            --text-sub: #9e9ea3;
+            --accent: #6c63ff;   /* Violet clair iOS pour le timer */
             --btn-bg: rgba(255, 255, 255, 0.05);
         }
 
         body {
             background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: 'Inter', -apple-system, sans-serif;
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
             margin: 0;
             padding: 40px 20px;
             display: flex;
@@ -29,108 +28,106 @@
             align-items: center;
         }
 
-        .container { width: 100%; max-width: 450px; text-align: center; }
+        .container { width: 100%; max-width: 480px; text-align: center; }
 
         /* Header */
-        .icon-main { width: 85px; height: 85px; border-radius: 20px; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.5); }
-        h1 { font-size: 32px; font-weight: 800; margin: 0; letter-spacing: -1px; }
-        .desc { color: var(--sub-text); margin: 15px 0 40px 0; font-size: 15px; line-height: 1.5; }
+        .icon-main { width: 90px; height: 90px; border-radius: 20px; margin-bottom: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.5); }
+        h1 { font-size: 36px; font-weight: 800; margin: 0; letter-spacing: -1.5px; }
+        .desc { color: var(--text-sub); margin: 15px 0 40px 0; font-size: 16px; line-height: 1.6; }
 
-        /* Cartes Apple ID */
-        .section-title { text-align: left; font-size: 20px; font-weight: 700; margin-bottom: 15px; margin-left: 5px; }
+        /* Cartes d'offres (Identique à ton brouillon PicsArt) */
+        .section-title { text-align: left; font-size: 20px; font-weight: 700; margin-bottom: 15px; }
         
         .feature-card {
             background: var(--card-bg);
-            border-radius: 28px;
-            padding: 20px;
+            border-radius: 30px;
+            padding: 25px;
             margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            border: 1px solid rgba(255,255,255,0.04);
+            transition: 0.3s;
         }
 
-        .feature-card img { width: 100%; border-radius: 18px; margin-bottom: 15px; }
-        .feature-card h3 { margin: 10px 0; font-size: 18px; }
-        .feature-card p { color: var(--sub-text); font-size: 14px; margin-bottom: 20px; }
+        .feature-card img { width: 100%; border-radius: 20px; margin-bottom: 20px; }
+        .feature-card h3 { margin: 10px 0; font-size: 20px; font-weight: 700; }
+        .feature-card p { color: var(--text-sub); font-size: 14px; margin-bottom: 25px; line-height: 1.5; }
         
-        .btn-get {
-            display: block; background: var(--accent-color); color: white;
-            text-decoration: none; padding: 14px; border-radius: 16px;
-            font-weight: 700; transition: transform 0.2s;
+        /* Bouton Get et Timer */
+        #getBtn, #timer {
+            display: block; width: 100%; background: var(--accent); color: white;
+            text-decoration: none; padding: 18px; border-radius: 18px;
+            font-weight: 700; font-size: 18px; cursor: pointer; transition: 0.2s; border: none;
         }
-        .btn-get:active { transform: scale(0.96); }
+        #getBtn:active { transform: scale(0.97); }
 
-        /* FAQ */
-        .faq-item { background: var(--btn-bg); border-radius: 20px; padding: 20px; margin-bottom: 12px; text-align: left; border: 1px solid rgba(255,255,255,0.05); }
-        .faq-q { font-weight: 700; margin-bottom: 8px; color: var(--accent-color); font-size: 15px; }
-        .faq-a { font-size: 14px; color: var(--sub-text); line-height: 1.5; }
+        /* Timer (caché au début) */
+        #timer { background: rgba(108, 99, 255, 0.2); color: var(--accent); font-family: monospace; font-size: 24px; display: none; cursor: default; }
 
-        /* Boutons Sociaux */
-        .social-container { display: flex; flex-direction: column; gap: 12px; margin-top: 30px; width: 100%; }
-        
-        .social-btn {
-            background: var(--btn-bg);
-            color: white;
-            text-decoration: none;
-            padding: 16px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            font-weight: 600;
-            transition: 0.2s;
-            border: 1px solid rgba(255,255,255,0.1);
+        /* Bloc Révélation de l'Apple ID (caché au début) */
+        #revealBox {
+            background: var(--btn-bg); border-radius: 18px; padding: 20px; margin-top: 20px;
+            text-align: left; border: 1px solid rgba(108, 99, 255, 0.3); display: none;
         }
-        .social-btn:active { background: rgba(255,255,255,0.1); }
-        .social-btn img { width: 22px; height: 22px; object-fit: contain; }
-
-        footer { margin-top: 60px; font-size: 12px; color: #444; }
+        .reveal-title { color: var(--accent); font-weight: 700; margin-bottom: 8px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
+        .reveal-data { font-size: 16px; margin-bottom: 12px; font-family: monospace; letter-spacing: 0.5px; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <img src="/image/BlueApple.png" class="icon-main" alt="Logo Qx">
+        <img src="/image/BlueApple.png" class="icon-main" alt="Logo VIP">
         
-        <h1>Qx.dev95</h1>
+        <h1>Apple VIP Store</h1>
         <p class="desc">The best way to get any apps & games you want for free.<br>Good, fast, and working all time.</p>
 
         <h2 class="section-title">Apple IDs</h2>
         <div class="feature-card">
-            <img src="/image/AppleID.png" alt="Minecraft & Apple TV">
+            <img src="/image/AppleID.png" alt="Minecraft & Apple TV Offer">
             <h3>Minecraft & Apple TV ID</h3>
             <p>Get Minecraft and Apple TV for free (iOS only). Your experience is safe and reliable.</p>
-            <a href="https://discord.gg/keEEQ6bBSB" class="btn-get">Get</a>
-        </div>
-
-        <h2 class="section-title">FAQ</h2>
-        <div class="faq-item">
-            <div class="faq-q">How to use the apple id</div>
-            <div class="faq-a">Just login to the apple id and when you do that then enter to app store and click on your profile pic and click on My Purchase and click on OMARKXOX and you will see the apps & games.</div>
-        </div>
-        <div class="faq-item">
-            <div class="faq-q">What do I do if the ID is locked?</div>
-            <div class="faq-a">Don't worry. The ID will be resolved soon. Wait from 1 hour to 24 hours. Our team keeps your experience safe and flawless.</div>
-        </div>
-
-        <div class="social-container">
-            <a href="https://www.tiktok.com/@lk_9292?_r=1&_t=ZN-9549Avkwros" class="social-btn" target="_blank">
-                <img src="/image/tiktok.png" alt="TikTok"> TikTok
-            </a>
             
-            <a href="https://www.instagram.com/qx.dev95" class="social-btn" target="_blank">
-                <img src="/image/instagram.png" alt="Instagram"> Instagram
-            </a>
+            <button id="getBtn">Get</button>
             
-            <a href="https://discord.gg/keEEQ6bBSB" class="social-btn" target="_blank">
-                <img src="/image/discord.png" alt="Discord"> Join Discord
-            </a>
+            <div id="timer">1:00</div>
+            
+            <div id="revealBox">
+                <div class="reveal-title">Apple ID</div>
+                <div class="reveal-data">test@test.com</div>
+                <div class="reveal-title">Password</div>
+                <div class="reveal-data">Password123!</div>
+            </div>
         </div>
-
-        <footer>
-            &copy; 2026 Qx.dev95. All rights reserved.
-        </footer>
     </div>
 
+    <script>
+        const getBtn = document.getElementById('getBtn');
+        const timerDisplay = document.getElementById('timer');
+        const revealBox = document.getElementById('revealBox');
+
+        getBtn.addEventListener('click', () => {
+            getBtn.style.display = 'none'; // Cache le bouton
+            timerDisplay.style.display = 'block'; // Affiche le timer
+
+            let seconds = 60;
+
+            const countdown = setInterval(() => {
+                seconds--;
+
+                let minutes = Math.floor(seconds / 60);
+                let remainingSeconds = seconds % 60;
+
+                // Ajoute un '0' devant si c'est inférieur à 10s (ex: 0:09)
+                remainingSeconds = remainingSeconds < 10 ? '0' + remainingSeconds : remainingSeconds;
+
+                timerDisplay.innerHTML = `${minutes}:${remainingSeconds}`;
+
+                if (seconds === 0) {
+                    clearInterval(countdown);
+                    timerDisplay.style.display = 'none'; // Cache le timer
+                    revealBox.style.display = 'block'; // Révèle l'ID
+                }
+            }, 1000); // Met à jour toutes les secondes
+        });
+    </script>
 </body>
 </html>
