@@ -9,34 +9,15 @@
 
     <style>
         :root {
-            /* THÈME SOMBRE */
             --bg-color: #0d0e11;
             --card-bg: #1d1e22;
             --text-main: #ffffff;
             --text-sub: #9e9ea3;
             --accent: #6c63ff;
-            --glow-mauve: rgba(108, 99, 255, 0.4);
             --btn-bg: rgba(255, 255, 255, 0.05);
-            --faq-border: rgba(255,255,255,0.05);
-            --toggle-bg: #1d1e22;
-            --toggle-border: rgba(255,255,255,0.1);
         }
 
-        /* THÈME CLAIR */
-        [data-theme="light"] {
-            --bg-color: #f5f7ff; 
-            --card-bg: #eef2ff; 
-            --text-main: #1d1d1f;
-            --text-sub: #6e6e73; 
-            --accent: #6c63ff;
-            --glow-mauve: rgba(108, 99, 255, 0.2);
-            --btn-bg: #ffffff; 
-            --faq-border: #dce4ff; 
-            --toggle-bg: #eef2ff; 
-            --toggle-border: #dce4ff; 
-        }
-
-        * { box-sizing: border-box; outline: none; transition: background-color 0.3s ease, color 0.3s ease; }
+        * { box-sizing: border-box; }
 
         body {
             background-color: var(--bg-color);
@@ -47,203 +28,171 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            overflow-x: hidden;
         }
-
-        .theme-toggle {
-            position: fixed;
-            top: 25px;
-            right: 25px;
-            background: var(--toggle-bg); 
-            border: 1px solid var(--toggle-border);
-            width: 42px;
-            height: 42px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 2000;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        }
-        .theme-toggle img { width: 20px; height: 20px; }
 
         .container { width: 100%; max-width: 420px; text-align: center; }
-        .icon-main { width: 90px; height: 90px; border-radius: 20px; margin-bottom: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
-        h1 { font-size: 38px; font-weight: 800; margin: 0; letter-spacing: -1.8px; }
-        
-        /* AJUSTEMENT : Marge réduite car le texte est plus court */
-        .desc { color: var(--text-sub); margin: 12px 0 25px 0; font-size: 16px; line-height: 1.4; }
 
-        .section-title { font-size: 24px; font-weight: 700; margin: 40px 0 20px 0; letter-spacing: -0.5px; }
+        .icon-main { width: 90px; height: 90px; border-radius: 20px; margin-bottom: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.5); }
+        h1 { font-size: 36px; font-weight: 800; margin: 0; letter-spacing: -1.5px; }
+        .desc { color: var(--text-sub); margin: 15px 0 40px 0; font-size: 16px; line-height: 1.6; }
+
+        .section-title { text-align: center; font-size: 22px; font-weight: 700; margin: 30px 0 20px 0; width: 100%; }
         
         .feature-card {
-            background: var(--card-bg); border-radius: 35px; padding: 25px;
-            width: 100%; border: 1px solid var(--faq-border);
-            display: flex; flex-direction: column; align-items: center;
-            margin-bottom: 20px;
+            background: var(--card-bg);
+            border-radius: 30px;
+            padding: 25px;
+            width: 100%;
+            border: 1px solid rgba(255,255,255,0.04);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
         }
 
         .feature-card img { width: 100%; border-radius: 20px; margin-bottom: 20px; }
-        .feature-card h3 { margin: 10px 0; font-size: 22px; font-weight: 700; }
-        .feature-card p { color: var(--text-sub); font-size: 14px; margin-bottom: 25px; }
+        .feature-card h3 { margin: 10px 0; font-size: 20px; font-weight: 700; }
+        .feature-card p { color: var(--text-sub); font-size: 14px; margin-bottom: 25px; line-height: 1.5; }
         
-        #getBtn {
-            width: 100%; background: linear-gradient(135deg, #6c63ff, #8e87ff); color: white;
-            padding: 18px; border-radius: 25px; font-weight: 700; font-size: 20px;
-            cursor: pointer; border: none; box-shadow: 0 10px 20px var(--glow-mauve);
+        #getBtn, #timer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            background: var(--accent);
+            color: white;
+            padding: 18px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 20px;
+            cursor: pointer;
+            border: none;
+            transition: 0.2s;
         }
-
-        #timer { 
-            display: none; align-items: center; justify-content: center;
-            width: 100%; background: var(--toggle-bg); 
-            color: var(--accent); padding: 18px; border-radius: 25px;
-            font-weight: 700; font-size: 20px; border: 1px solid var(--toggle-border);
-        }
-
-        .waiting-text { color: var(--text-sub); font-size: 13px; margin-top: 20px; display: none; }
+        #getBtn:active { transform: scale(0.97); }
+        #timer { background: rgba(108, 99, 255, 0.15); color: var(--accent); display: none; cursor: default; }
 
         #revealBox {
-            background: var(--btn-bg); border-radius: 20px; padding: 20px;
-            margin-top: 20px; width: 100%; text-align: left;
-            border: 1px solid var(--faq-border); display: none;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 20px;
+            margin-top: 20px;
+            width: 100%;
+            text-align: left;
+            border: 1px solid rgba(108, 99, 255, 0.2);
+            display: none;
         }
+        .reveal-title { color: var(--accent); font-weight: 700; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; }
+        .reveal-data { font-size: 16px; margin-bottom: 15px; font-weight: 600; color: #fff; font-family: monospace; }
 
-        .reveal-title { color: var(--accent); font-weight: 700; margin-bottom: 6px; font-size: 11px; text-transform: uppercase; }
-        .copy-wrapper {
-            display: flex; align-items: center; justify-content: space-between;
-            background: var(--bg-color); padding: 12px 15px; border-radius: 12px;
-            border: 1px solid var(--faq-border); margin-bottom: 10px;
-        }
-
-        .copy-btn { background: var(--accent); color: white; border: none; padding: 6px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; }
-
-        .excuse-text { color: var(--text-sub); font-size: 12px; margin-top: 15px; display: none; line-height: 1.4; }
-
-        .faq-item { background: var(--card-bg); border-radius: 25px; padding: 20px; margin-bottom: 15px; border: 1px solid var(--faq-border); text-align: left; width: 100%; }
-        .faq-q { font-weight: 700; color: var(--accent); margin-bottom: 8px; font-size: 16px; }
+        .faq-container { width: 100%; text-align: left; }
+        .faq-item { background: var(--btn-bg); border-radius: 20px; padding: 20px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.05); }
+        .faq-q { font-weight: 700; margin-bottom: 8px; color: var(--accent); font-size: 15px; }
         .faq-a { font-size: 14px; color: var(--text-sub); line-height: 1.5; }
 
-        .social-container { display: flex; flex-direction: column; gap: 12px; margin-top: 50px; width: 100%; }
+        .social-container { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; width: 100%; }
         .social-btn {
-            background: var(--card-bg); color: var(--text-main); text-decoration: none;
-            padding: 16px; border-radius: 20px; display: flex; align-items: center;
-            justify-content: center; gap: 12px; font-weight: 600; border: 1px solid var(--faq-border);
+            background: var(--btn-bg);
+            color: white;
+            text-decoration: none;
+            padding: 16px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-weight: 600;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: 0.2s;
         }
-        .social-btn img { width: 24px; }
+        .social-btn img { width: 24px; height: 24px; object-fit: contain; }
 
-        footer { margin: 60px 0 40px 0; font-size: 12px; color: var(--text-sub); }
+        footer { margin: 60px 0 40px 0; font-size: 12px; color: #444; }
     </style>
 </head>
 <body>
 
-    <div class="theme-toggle" id="themeToggle">
-        <img src="/image/sun.png" id="themeIcon" alt="Switch">
-    </div>
-
     <div class="container">
         <img src="/image/BlueApple.png" class="icon-main" alt="Logo">
-        <h1>Apple Vip</h1>
         
-        <p class="desc">
-            The best way to get any apps and games for free: fast, reliable, and always working.
-        </p>
+        <h1>Apple Vip</h1>
+        <p class="desc">The best way to get any apps & games you want for free.<br>Good, fast, and working all time.</p>
 
         <h2 class="section-title">Apple IDs</h2>
+        
         <div class="feature-card">
             <img src="/image/AppleID.png" alt="Minecraft & Apple TV">
             <h3>Minecraft & Apple TV ID</h3>
-            <p>Get instant access to Minecraft and Apple TV and more paid apps for free. This service is exclusive to iOS users and guaranteed safe.</p>
+            <p>Get Minecraft and Apple TV for free (iOS only). Your experience is safe and reliable.</p>
             
             <button id="getBtn">Get</button>
             <div id="timer">1:00</div>
-            <p class="waiting-text" id="waitingText">Please wait for the timer to finish before the Apple ID & password appear.</p>
             
             <div id="revealBox">
                 <div class="reveal-title">Apple ID</div>
-                <div class="copy-wrapper">
-                    <div id="appleIdText">israel333300@isteal-it.com</div>
-                    <button class="copy-btn" onclick="copyText('appleIdText', this)">COPY</button>
-                </div>
+                <div class="reveal-data">appleid@example.com</div>
                 <div class="reveal-title">Password</div>
-                <div class="copy-wrapper">
-                    <div id="passwordText">FuckAllah9]mobimeg.com</div>
-                    <button class="copy-btn" onclick="copyText('passwordText', this)">COPY</button>
-                </div>
+                <div class="reveal-data">Password123!</div>
             </div>
-            <p class="excuse-text" id="excuseText">We sincerely apologize for the choice of the password. These accounts are shared and we do not manage the password selection ourselves.</p>
         </div>
 
-        <h2 class="section-title">Frequently Asked Questions</h2>
-        
-        <div class="faq-item">
-            <div class="faq-q">How to use the Apple ID?</div>
-            <div class="faq-a">Simply sign out from your App Store settings, login with our VIP ID, and go to your "Purchased" section to download your favorite games.</div>
-        </div>
-        
-        <div class="faq-item">
-            <div class="faq-q">Is it safe for my device?</div>
-            <div class="faq-a">Absolutely. Our IDs are intended for use in the App Store only. Never sign into iCloud or your main device settings to ensure total safety and privacy.</div>
-        </div>
-        
-        <div class="faq-item">
-            <div class="faq-q">What if the account is locked?</div>
-            <div class="faq-a">Our VIP accounts are automatically reset and updated every 24 hours. If an ID appears locked, please check back later for a fresh and working login.</div>
+        <h2 class="section-title">FAQ</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-q">How to use?</div>
+                <div class="faq-a">Sign out from the App Store, login with our VIP ID, and check your Purchased section to download everything.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">Is it safe?</div>
+                <div class="faq-a"><b>Yes.</b> Only use it in the App Store. Never sign into iCloud or Settings. Your device remains 100% secure.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">Account locked?</div>
+                <div class="faq-a">IDs are reset every 24 hours. If it's locked, just check back later or join our Discord for updates.</div>
+            </div>
         </div>
 
         <div class="social-container">
-            <a href="https://www.tiktok.com/@lk_9292" target="_blank" class="social-btn"><img src="/image/tiktok.png"> TikTok</a>
-            <a href="https://www.instagram.com/qx.dev95" target="_blank" class="social-btn"><img src="/image/instagram.png"> Instagram</a>
-            <a href="https://discord.gg/keEEQ6bBSB" target="_blank" class="social-btn"><img src="/image/discord.png"> Discord</a>
+            <a href="https://www.tiktok.com/@lk_9292?_r=1&_t=ZN-9549Avkwros" class="social-btn" target="_blank">
+                <img src="/image/tiktok.PNG" alt="TikTok"> TikTok
+            </a>
+            <a href="https://www.instagram.com/qx.dev95" class="social-btn" target="_blank">
+                <img src="/image/instagram.PNG" alt="Instagram"> Instagram
+            </a>
+            <a href="https://discord.gg/keEEQ6bBSB" class="social-btn" target="_blank">
+                <img src="/image/discord.png" alt="Discord"> Join Discord
+            </a>
         </div>
-        <footer>© 2026 Qx.dev95 All rights reserved.</footer>
+
+        <footer>
+            &copy; 2026 Qx.dev95. All rights reserved.
+        </footer>
     </div>
 
     <script>
-        const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = document.getElementById('themeIcon');
-        const body = document.body;
-
-        themeToggle.addEventListener('click', () => {
-            if (body.getAttribute('data-theme') === 'light') {
-                body.removeAttribute('data-theme');
-                themeIcon.src = '/image/sun.png'; 
-            } else {
-                body.setAttribute('data-theme', 'light');
-                themeIcon.src = '/image/moon.png';
-            }
-        });
-
         const getBtn = document.getElementById('getBtn');
         const timerDisplay = document.getElementById('timer');
         const revealBox = document.getElementById('revealBox');
-        const waitingText = document.getElementById('waitingText');
-        const excuseText = document.getElementById('excuseText');
 
         getBtn.addEventListener('click', () => {
             getBtn.style.display = 'none';
             timerDisplay.style.display = 'flex';
-            waitingText.style.display = 'block';
+
             let seconds = 60;
             const countdown = setInterval(() => {
                 seconds--;
-                timerDisplay.innerHTML = `0:${seconds < 10 ? '0' + seconds : seconds}`;
+                let mins = Math.floor(seconds / 60);
+                let secs = seconds % 60;
+                timerDisplay.innerHTML = `${mins}:${secs < 10 ? '0' + secs : secs}`;
+
                 if (seconds === 0) {
                     clearInterval(countdown);
                     timerDisplay.style.display = 'none';
-                    waitingText.style.display = 'none';
                     revealBox.style.display = 'block';
-                    excuseText.style.display = 'block';
                 }
             }, 1000);
         });
-
-        function copyText(id, btn) {
-            const text = document.getElementById(id).innerText;
-            navigator.clipboard.writeText(text).then(() => {
-                btn.innerText = "COPIED!";
-                setTimeout(() => { btn.innerText = "COPY"; }, 2000);
-            });
-        }
     </script>
 </body>
 </html>
