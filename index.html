@@ -116,11 +116,10 @@
 
         #getBtn {
             width: 100%; 
-            /* Dégradé dual-color */
             background: linear-gradient(135deg, #6c63ff 0%, #00d2ff 100%); 
             color: white;
             padding: 18px; border-radius: 25px; 
-            font-weight: 800; /* Texte extra gras comme demandé */
+            font-weight: 800; 
             font-size: 20px;
             cursor: pointer; border: none; 
             animation: glowBreath 3s infinite ease-in-out;
@@ -165,13 +164,17 @@
             border-radius: 12px; border: 1px solid rgba(108, 99, 255, 0.1); margin-bottom: 12px;
         }
 
-        /* AMÉLIORATION : Texte Lavande pour un look VIP */
         .copy-text { 
             font-size: 16px; 
-            color: #d1c4ff; /* Lavande pastel */
+            color: #d1c4ff; /* Lavande pastel par défaut */
             font-family: ui-monospace, Menlo, Monaco, 'Courier New', monospace;
             overflow: hidden; white-space: nowrap; text-overflow: ellipsis; 
             margin-right: 10px; flex-grow: 1; letter-spacing: -0.1px;
+        }
+
+        /* RÉPARATION : Visibilité du texte en mode CLAIR */
+        [data-theme="light"] .copy-text {
+            color: #4d4680; /* Violet foncé pour un contraste parfait */
         }
 
         .copy-btn { 
