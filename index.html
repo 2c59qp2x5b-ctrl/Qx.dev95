@@ -11,16 +11,18 @@
 
     <style>
         :root {
-            --bg-color: #0d0e11;
-            --card-bg: #1d1e22;
+            /* AMÉLIORATION : Palette de couleurs plus profonde et premium */
+            --bg-color: #060709;
+            --card-bg: #111215;
             --input-bg: rgba(0, 0, 0, 0.2); 
             --text-main: #ffffff;
             --text-sub: #9e9ea3;
             --accent: #6c63ff;
+            --accent-glow: #00d2ff; /* Couleur secondaire pour le Dual Glow */
             --glow-mauve: rgba(108, 99, 255, 0.4);
             --btn-bg: rgba(255, 255, 255, 0.05);
-            --faq-border: rgba(255,255,255,0.05);
-            --toggle-bg: #1d1e22;
+            --faq-border: rgba(108, 99, 255, 0.1);
+            --toggle-bg: #111215;
             --toggle-border: rgba(255,255,255,0.1);
         }
 
@@ -31,6 +33,7 @@
             --text-main: #1d1d1f;
             --text-sub: #6e6e73; 
             --accent: #6c63ff;
+            --accent-glow: #8e87ff;
             --glow-mauve: rgba(108, 99, 255, 0.2);
             --btn-bg: rgba(0, 0, 0, 0.03);
             --faq-border: rgba(0, 0, 0, 0.08);
@@ -51,7 +54,6 @@
             align-items: center;
         }
 
-        /* AJOUT : Pastille Status Live */
         .status-badge {
             display: inline-flex;
             align-items: center;
@@ -83,7 +85,7 @@
         .theme-toggle img { width: 20px; height: 20px; }
 
         .container { width: 100%; max-width: 420px; text-align: center; }
-        .icon-main { width: 90px; height: 90px; border-radius: 20px; margin-bottom: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
+        .icon-main { width: 90px; height: 90px; border-radius: 20px; margin-bottom: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.5); }
         h1 { font-size: 38px; font-weight: 800; margin: 0; letter-spacing: -1.8px; }
         .desc { color: var(--text-sub); margin: 15px 0 40px 0; font-size: 16px; line-height: 1.6; }
 
@@ -100,36 +102,50 @@
         .feature-card h3 { margin: 10px 0; font-size: 22px; font-weight: 700; }
         .feature-card p { color: var(--text-sub); font-size: 14px; margin-bottom: 25px; }
         
+        /* AMÉLIORATION : Animation Dual Glow (Violet + Cyan) */
         @keyframes glowBreath {
-            0%, 100% { box-shadow: 0 4px 15px rgba(0,0,0,0.1), 0 0 10px var(--glow-mauve); }
-            50% { box-shadow: 0 4px 15px rgba(0,0,0,0.1), 0 0 20px var(--glow-mauve); }
+            0%, 100% { 
+                box-shadow: 0 0 15px rgba(108, 99, 255, 0.5), 0 0 30px rgba(0, 210, 255, 0.2); 
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 0 25px rgba(108, 99, 255, 0.7), 0 0 45px rgba(0, 210, 255, 0.4);
+                transform: scale(1.02);
+            }
         }
 
         #getBtn {
-            width: 100%; background: linear-gradient(135deg, #6c63ff, #8e87ff); color: white;
-            padding: 18px; border-radius: 25px; font-weight: 700; font-size: 20px;
-            cursor: pointer; border: none; box-shadow: 0 10px 20px var(--glow-mauve);
-            animation: glowBreath 3s infinite;
+            width: 100%; 
+            /* Dégradé dual-color */
+            background: linear-gradient(135deg, #6c63ff 0%, #00d2ff 100%); 
+            color: white;
+            padding: 18px; border-radius: 25px; 
+            font-weight: 800; /* Texte extra gras comme demandé */
+            font-size: 20px;
+            cursor: pointer; border: none; 
+            animation: glowBreath 3s infinite ease-in-out;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         #timer { 
             display: none; align-items: center; justify-content: center;
             width: 100%; color: var(--accent); font-weight: 800; font-size: 24px;
             margin-bottom: 10px;
+            text-shadow: 0 0 10px var(--glow-mauve);
         }
 
-        /* AJOUT : Barre de progression */
         .progress-container {
             display: none;
             width: 100%; height: 8px;
-            background: rgba(0,0,0,0.1);
+            background: rgba(0,0,0,0.2);
             border-radius: 10px;
             margin-top: 15px;
             overflow: hidden;
         }
         .progress-bar {
             width: 0%; height: 100%;
-            background: linear-gradient(90deg, #6c63ff, #8e87ff);
+            background: linear-gradient(90deg, #6c63ff, #00d2ff);
             transition: width 1s linear;
         }
 
@@ -149,8 +165,10 @@
             border-radius: 12px; border: 1px solid rgba(108, 99, 255, 0.1); margin-bottom: 12px;
         }
 
+        /* AMÉLIORATION : Texte Lavande pour un look VIP */
         .copy-text { 
-            font-size: 16px; color: var(--text-main);
+            font-size: 16px; 
+            color: #d1c4ff; /* Lavande pastel */
             font-family: ui-monospace, Menlo, Monaco, 'Courier New', monospace;
             overflow: hidden; white-space: nowrap; text-overflow: ellipsis; 
             margin-right: 10px; flex-grow: 1; letter-spacing: -0.1px;
@@ -164,7 +182,6 @@
 
         .excuse-text { color: var(--text-sub); font-size: 12px; margin-top: 15px; display: none; line-height: 1.4; text-align: center;}
 
-        /* AJOUT : Next Update Teaser */
         .next-update {
             margin-top: 25px;
             padding-top: 15px;
@@ -302,11 +319,7 @@
 
             const countdown = setInterval(() => {
                 seconds--;
-                
-                // Mise à jour du texte du timer
                 timerDisplay.innerHTML = `0:${seconds < 10 ? '0' + seconds : seconds}`;
-                
-                // Mise à jour de la barre de progression
                 let percent = ((total - seconds) / total) * 100;
                 progressBar.style.width = percent + "%";
 
