@@ -12,6 +12,7 @@
             /* THÈME SOMBRE */
             --bg-color: #0d0e11;
             --card-bg: #1d1e22;
+            --input-bg: rgba(0, 0, 0, 0.2); /* Fond de champ plus sombre */
             --text-main: #ffffff;
             --text-sub: #9e9ea3;
             --accent: #6c63ff;
@@ -22,10 +23,11 @@
             --toggle-border: rgba(255,255,255,0.1);
         }
 
-        /* THÈME CLAIR - HARMONISÉ */
+        /* THÈME CLAIR (Vérification) */
         [data-theme="light"] {
             --bg-color: #f5f5f7; 
-            --card-bg: #F2F2F7; /* Couleur identique à la FAQ */
+            --card-bg: #F2F2F7; /* Couleur harmonisée avec la FAQ */
+            --input-bg: rgba(0, 0, 0, 0.03); 
             --text-main: #1d1d1f;
             --text-sub: #6e6e73; 
             --accent: #6c63ff;
@@ -36,7 +38,7 @@
             --toggle-border: #D8D9FB; 
         }
 
-        * { box-sizing: border-box; outline: none; transition: background-color 0.3s ease, color 0.3s ease; }
+        * { box-sizing: border-box; outline: none; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
 
         body {
             background-color: var(--bg-color);
@@ -65,7 +67,6 @@
         .icon-main { width: 90px; height: 90px; border-radius: 20px; margin-bottom: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
         h1 { font-size: 38px; font-weight: 800; margin: 0; letter-spacing: -1.8px; }
         
-        /* PHRASE MISE À JOUR */
         .desc { color: var(--text-sub); margin: 15px 0 40px 0; font-size: 16px; line-height: 1.6; }
 
         .section-title { font-size: 24px; font-weight: 700; margin: 40px 0 20px 0; letter-spacing: -0.5px; }
@@ -81,10 +82,17 @@
         .feature-card h3 { margin: 10px 0; font-size: 22px; font-weight: 700; }
         .feature-card p { color: var(--text-sub); font-size: 14px; margin-bottom: 25px; }
         
+        /* CORRECTION Glowbreath animation */
+        @keyframes glowBreath {
+            0%, 100% { box-shadow: 0 4px 15px rgba(0,0,0,0.1), 0 0 10px var(--glow-mauve); }
+            50% { box-shadow: 0 4px 15px rgba(0,0,0,0.1), 0 0 20px var(--glow-mauve); }
+        }
+
         #getBtn {
-            width: 100%; background: var(--accent); color: white;
+            width: 100%; background: linear-gradient(135deg, #6c63ff, #8e87ff); color: white;
             padding: 18px; border-radius: 25px; font-weight: 700; font-size: 20px;
             cursor: pointer; border: none; box-shadow: 0 10px 20px var(--glow-mauve);
+            animation: glowBreath 3s infinite; /* Glow ajoutÃ© au bouton GET */
         }
 
         #timer { 
@@ -94,7 +102,7 @@
             font-weight: 700; font-size: 20px; border: 1px solid var(--faq-border);
         }
 
-        .waiting-text { color: var(--text-sub); font-size: 13px; margin-top: 20px; display: none; }
+        .waiting-text { color: var(--text-sub); font-size: 13px; margin-top: 20px; display: none; text-align: center;}
 
         #revealBox {
             background: var(--btn-bg); border-radius: 20px; padding: 20px;
@@ -102,30 +110,52 @@
             border: 1px solid var(--faq-border); display: none;
         }
 
-        .reveal-title { color: var(--accent); font-weight: 700; margin-bottom: 8px; font-size: 11px; text-transform: uppercase; }
+        .reveal-title { color: var(--accent); font-weight: 700; margin-bottom: 6px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;}
         
-        /* STYLE ONGLETS ID/MDP (Police Monospace) */
+        /* AESTHETIC IMPORVEMENT pour les champs ID/MDP */
         .copy-wrapper {
-            display: flex; align-items: center; justify-content: space-between;
-            background: rgba(0, 0, 0, 0.15); padding: 12px 12px 12px 18px; border-radius: 12px;
-            border: 1px solid rgba(108, 99, 255, 0.15); margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--input-bg); 
+            padding: 10px 10px 10px 15px; 
+            border-radius: 12px;
+            border: 1px solid rgba(108, 99, 255, 0.1); /* Bordure trÃ¨s subtile pour l'aesthetics */
+            margin-bottom: 12px;
         }
 
-        .copy-text {
-            font-size: 16px; color: var(--text-main);
-            font-family: ui-monospace, Menlo, Monaco, monospace; 
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; 
-            margin-right: 12px; flex-grow: 1;
+        /* Police Monospace et style champ de saisie */
+        .copy-text { 
+            font-size: 16px; 
+            color: var(--text-main);
+            font-family: ui-monospace, Menlo, Monaco, 'Courier New', monospace; /* Police code comme le screen */
+            overflow: hidden; 
+            white-space: nowrap; 
+            text-overflow: ellipsis; 
+            margin-right: 10px;
+            flex-grow: 1;
+            letter-spacing: -0.1px;
         }
 
-        .copy-btn { background: var(--accent); color: white; border: none; padding: 8px 18px; border-radius: 8px; font-size: 12px; font-weight: 800; cursor: pointer; flex-shrink: 0; }
+        .copy-btn { 
+            background: var(--accent); 
+            color: white; 
+            border: none; 
+            padding: 8px 15px; 
+            border-radius: 8px; 
+            font-size: 12px; 
+            font-weight: 800; 
+            cursor: pointer; 
+            flex-shrink: 0;
+            text-transform: uppercase;
+        }
 
-        /* MESSAGE D'EXCUSE (Caché par défaut) */
-        .excuse-text { color: var(--text-sub); font-size: 12px; margin-top: 15px; display: none; line-height: 1.4; text-align: center; }
+        /* Message d'excuse (CachÃ© par JS) */
+        .excuse-text { color: var(--text-sub); font-size: 12px; margin-top: 15px; display: none; line-height: 1.4; text-align: center;}
 
         .faq-item { background: var(--card-bg); border-radius: 25px; padding: 20px; margin-bottom: 15px; border: 1px solid var(--faq-border); text-align: left; width: 100%; }
         .faq-q { font-weight: 700; color: var(--accent); margin-bottom: 8px; font-size: 16px; }
-        .faq-a { font-size: 14px; color: var(--text-sub); }
+        .faq-a { font-size: 14px; color: var(--text-sub); line-height: 1.5;}
 
         .social-container { display: flex; flex-direction: column; gap: 12px; margin-top: 50px; width: 100%; }
         .social-btn {
@@ -148,7 +178,9 @@
         <img src="/image/BlueApple.png" class="icon-main" alt="Logo">
         <h1>BlueApple</h1>
         
-        <p class="desc">The best way to get any apps and games for free: fast, reliable, and always working.</p>
+        <p class="desc">
+            The best way to get any apps and games for free: fast, reliable, and always working.
+        </p>
 
         <h2 class="section-title">Apple IDs</h2>
         <div class="feature-card">
@@ -161,21 +193,27 @@
             <p class="waiting-text" id="waitingText">Please wait for the timer to finish before the Apple ID & password appear.</p>
             
             <div id="revealBox">
-                <div class="reveal-title">Apple ID</div>
-                <div class="copy-wrapper">
-                    <div class="copy-text" id="appleIdText">votre.email@ici.com</div>
-                    <button class="copy-btn" onclick="copyText('appleIdText', this)">COPY</button>
+                <div class="reveal-group">
+                    <div class="reveal-title">Apple ID</div>
+                    <div class="copy-wrapper">
+                        <div class="copy-text" id="appleIdText">votre.email@ici.com</div>
+                        <button class="copy-btn" onclick="copyText('appleIdText', this)">COPY</button>
+                    </div>
                 </div>
-                <div class="reveal-title">Password</div>
-                <div class="copy-wrapper">
-                    <div class="copy-text" id="passwordText">VotreMotDePasse</div>
-                    <button class="copy-btn" onclick="copyText('passwordText', this)">COPY</button>
+                <div class="reveal-group">
+                    <div class="reveal-title">Password</div>
+                    <div class="copy-wrapper">
+                        <div class="copy-text" id="passwordText">VotreMotDePasse</div>
+                        <button class="copy-btn" onclick="copyText('passwordText', this)">COPY</button>
+                    </div>
                 </div>
             </div>
+            
             <p class="excuse-text" id="excuseText">We sincerely apologize for the choice of the password. These accounts are shared and we do not manage the password selection ourselves.</p>
         </div>
 
         <h2 class="section-title">Frequently Asked Questions</h2>
+        
         <div class="faq-item">
             <div class="faq-q">How to use the apple id</div>
             <div class="faq-a">just login to the apple id and when you do that then enter to app store and click on your profile pic and click on My Purchase and click on OMARKXOX and you will see everything from there</div>
@@ -184,6 +222,11 @@
         <div class="faq-item">
             <div class="faq-q">Is it safe?</div>
             <div class="faq-a">Yes. Only use it in the App Store. Never sign into iCloud or Settings.</div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-q">Account locked?</div>
+            <div class="faq-a">IDs are reset every 24 hours. If it's locked, just check back later.</div>
         </div>
 
         <div class="social-container">
