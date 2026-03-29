@@ -2,17 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Apple Vip</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            /* THÈME SOMBRE */
             --bg-color: #0d0e11;
             --card-bg: #1d1e22;
-            --input-bg: rgba(0, 0, 0, 0.2); /* Fond de champ plus sombre */
+            --input-bg: rgba(0, 0, 0, 0.2); 
             --text-main: #ffffff;
             --text-sub: #9e9ea3;
             --accent: #6c63ff;
@@ -23,10 +24,9 @@
             --toggle-border: rgba(255,255,255,0.1);
         }
 
-        /* THÈME CLAIR (Vérification) */
         [data-theme="light"] {
             --bg-color: #f5f5f7; 
-            --card-bg: #F2F2F7; /* Couleur harmonisée avec la FAQ */
+            --card-bg: #F2F2F7; 
             --input-bg: rgba(0, 0, 0, 0.03); 
             --text-main: #1d1d1f;
             --text-sub: #6e6e73; 
@@ -51,12 +51,31 @@
             align-items: center;
         }
 
+        /* AJOUT : Pastille Status Live */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(46, 213, 115, 0.1);
+            color: #2ed573;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+        .dot {
+            width: 6px; height: 6px;
+            background: #2ed573;
+            border-radius: 50%;
+            animation: blink 1.5s infinite;
+        }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+
         .theme-toggle {
-            position: fixed;
-            top: 25px;
-            right: 25px;
-            background: var(--toggle-bg); 
-            border: 1px solid var(--toggle-border);
+            position: fixed; top: 25px; right: 25px;
+            background: var(--toggle-bg); border: 1px solid var(--toggle-border);
             width: 42px; height: 42px; border-radius: 12px;
             display: flex; align-items: center; justify-content: center;
             cursor: pointer; z-index: 2000;
@@ -66,7 +85,6 @@
         .container { width: 100%; max-width: 420px; text-align: center; }
         .icon-main { width: 90px; height: 90px; border-radius: 20px; margin-bottom: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
         h1 { font-size: 38px; font-weight: 800; margin: 0; letter-spacing: -1.8px; }
-        
         .desc { color: var(--text-sub); margin: 15px 0 40px 0; font-size: 16px; line-height: 1.6; }
 
         .section-title { font-size: 24px; font-weight: 700; margin: 40px 0 20px 0; letter-spacing: -0.5px; }
@@ -75,14 +93,13 @@
             background: var(--card-bg); border-radius: 35px; padding: 25px;
             width: 100%; border: 1px solid var(--faq-border);
             display: flex; flex-direction: column; align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 20px; position: relative; overflow: hidden;
         }
 
         .feature-card img { width: 100%; border-radius: 20px; margin-bottom: 20px; }
         .feature-card h3 { margin: 10px 0; font-size: 22px; font-weight: 700; }
         .feature-card p { color: var(--text-sub); font-size: 14px; margin-bottom: 25px; }
         
-        /* CORRECTION Glowbreath animation */
         @keyframes glowBreath {
             0%, 100% { box-shadow: 0 4px 15px rgba(0,0,0,0.1), 0 0 10px var(--glow-mauve); }
             50% { box-shadow: 0 4px 15px rgba(0,0,0,0.1), 0 0 20px var(--glow-mauve); }
@@ -92,14 +109,28 @@
             width: 100%; background: linear-gradient(135deg, #6c63ff, #8e87ff); color: white;
             padding: 18px; border-radius: 25px; font-weight: 700; font-size: 20px;
             cursor: pointer; border: none; box-shadow: 0 10px 20px var(--glow-mauve);
-            animation: glowBreath 3s infinite; /* Glow ajoutÃ© au bouton GET */
+            animation: glowBreath 3s infinite;
         }
 
         #timer { 
             display: none; align-items: center; justify-content: center;
-            width: 100%; background: var(--btn-bg); 
-            color: var(--accent); padding: 18px; border-radius: 25px;
-            font-weight: 700; font-size: 20px; border: 1px solid var(--faq-border);
+            width: 100%; color: var(--accent); font-weight: 800; font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        /* AJOUT : Barre de progression */
+        .progress-container {
+            display: none;
+            width: 100%; height: 8px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 10px;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+        .progress-bar {
+            width: 0%; height: 100%;
+            background: linear-gradient(90deg, #6c63ff, #8e87ff);
+            transition: width 1s linear;
         }
 
         .waiting-text { color: var(--text-sub); font-size: 13px; margin-top: 20px; display: none; text-align: center;}
@@ -112,46 +143,37 @@
 
         .reveal-title { color: var(--accent); font-weight: 700; margin-bottom: 6px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;}
         
-        /* AESTHETIC IMPORVEMENT pour les champs ID/MDP */
         .copy-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: var(--input-bg); 
-            padding: 10px 10px 10px 15px; 
-            border-radius: 12px;
-            border: 1px solid rgba(108, 99, 255, 0.1); /* Bordure trÃ¨s subtile pour l'aesthetics */
-            margin-bottom: 12px;
+            display: flex; align-items: center; justify-content: space-between;
+            background: var(--input-bg); padding: 10px 10px 10px 15px; 
+            border-radius: 12px; border: 1px solid rgba(108, 99, 255, 0.1); margin-bottom: 12px;
         }
 
-        /* Police Monospace et style champ de saisie */
         .copy-text { 
-            font-size: 16px; 
-            color: var(--text-main);
-            font-family: ui-monospace, Menlo, Monaco, 'Courier New', monospace; /* Police code comme le screen */
-            overflow: hidden; 
-            white-space: nowrap; 
-            text-overflow: ellipsis; 
-            margin-right: 10px;
-            flex-grow: 1;
-            letter-spacing: -0.1px;
+            font-size: 16px; color: var(--text-main);
+            font-family: ui-monospace, Menlo, Monaco, 'Courier New', monospace;
+            overflow: hidden; white-space: nowrap; text-overflow: ellipsis; 
+            margin-right: 10px; flex-grow: 1; letter-spacing: -0.1px;
         }
 
         .copy-btn { 
-            background: var(--accent); 
-            color: white; 
-            border: none; 
-            padding: 8px 15px; 
-            border-radius: 8px; 
-            font-size: 12px; 
-            font-weight: 800; 
-            cursor: pointer; 
-            flex-shrink: 0;
-            text-transform: uppercase;
+            background: var(--accent); color: white; border: none; padding: 8px 15px; 
+            border-radius: 8px; font-size: 12px; font-weight: 800; cursor: pointer; 
+            flex-shrink: 0; text-transform: uppercase;
         }
 
-        /* Message d'excuse (CachÃ© par JS) */
         .excuse-text { color: var(--text-sub); font-size: 12px; margin-top: 15px; display: none; line-height: 1.4; text-align: center;}
+
+        /* AJOUT : Next Update Teaser */
+        .next-update {
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px dashed var(--faq-border);
+            color: var(--text-sub);
+            font-size: 11px;
+            font-weight: 600;
+            display: flex; align-items: center; gap: 8px;
+        }
 
         .faq-item { background: var(--card-bg); border-radius: 25px; padding: 20px; margin-bottom: 15px; border: 1px solid var(--faq-border); text-align: left; width: 100%; }
         .faq-q { font-weight: 700; color: var(--accent); margin-bottom: 8px; font-size: 16px; }
@@ -178,27 +200,30 @@
         <img src="/image/BlueApple.png" class="icon-main" alt="Logo">
         <h1>Apple Vip</h1>
         
-        <p class="desc">
-            The best way to get any apps and games for free: fast, reliable, and always working.
-        </p>
+        <p class="desc">The best way to get any apps and games for free: fast, reliable, and always working.</p>
 
         <h2 class="section-title">Apple IDs</h2>
         <div class="feature-card">
+            <div class="status-badge"><div class="dot"></div> Status: Working</div>
+
             <img src="/image/AppleID.png" alt="Minecraft & Apple TV">
             <h3>Minecraft & Apple TV ID</h3>
             <p>Get instant access to Minecraft and Apple TV and more paid apps for free. This service is exclusive to iOS users and guaranteed safe.</p>
             
             <button id="getBtn">Get</button>
-            <div id="timer">1:00</div>
+            
+            <div id="timer">0:60</div>
+            <div class="progress-container" id="progressCont">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+
             <p class="waiting-text" id="waitingText">Please wait for the timer to finish before the Apple ID & password appear.</p>
             
             <div id="revealBox">
                 <div class="reveal-group">
                     <div class="reveal-title">Apple ID</div>
                     <div class="copy-wrapper">
-                        <div class="copy-text" id="appleIdText">israel333300@isteal-it.com
-                         
-                        </div>
+                        <div class="copy-text" id="appleIdText">israel333300@isteal-it.com</div>
                         <button class="copy-btn" onclick="copyText('appleIdText', this)">COPY</button>
                     </div>
                 </div>
@@ -212,6 +237,10 @@
             </div>
             
             <p class="excuse-text" id="excuseText">We sincerely apologize for the choice of the password. These accounts are shared and we do not manage the password selection ourselves.</p>
+
+            <div class="next-update">
+                <span>🔥</span> Next Update: GTA San Andreas & Bloons TD 6 soon...
+            </div>
         </div>
 
         <h2 class="section-title">Frequently Asked Questions</h2>
@@ -256,6 +285,8 @@
 
         const getBtn = document.getElementById('getBtn');
         const timerDisplay = document.getElementById('timer');
+        const progressCont = document.getElementById('progressCont');
+        const progressBar = document.getElementById('progressBar');
         const revealBox = document.getElementById('revealBox');
         const waitingText = document.getElementById('waitingText');
         const excuseText = document.getElementById('excuseText');
@@ -263,17 +294,29 @@
         getBtn.addEventListener('click', () => {
             getBtn.style.display = 'none';
             timerDisplay.style.display = 'flex';
+            progressCont.style.display = 'block';
             waitingText.style.display = 'block';
+            
             let seconds = 60;
+            let total = 60;
+
             const countdown = setInterval(() => {
                 seconds--;
+                
+                // Mise à jour du texte du timer
                 timerDisplay.innerHTML = `0:${seconds < 10 ? '0' + seconds : seconds}`;
+                
+                // Mise à jour de la barre de progression
+                let percent = ((total - seconds) / total) * 100;
+                progressBar.style.width = percent + "%";
+
                 if (seconds === 0) {
                     clearInterval(countdown);
                     timerDisplay.style.display = 'none';
+                    progressCont.style.display = 'none';
                     waitingText.style.display = 'none';
                     revealBox.style.display = 'block';
-                    excuseText.style.display = 'block'; // S'affiche seulement ici
+                    excuseText.style.display = 'block';
                 }
             }, 1000);
         });
