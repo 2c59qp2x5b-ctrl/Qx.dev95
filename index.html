@@ -11,14 +11,13 @@
 
     <style>
         :root {
-            /* AMÉLIORATION : Palette de couleurs plus profonde et premium */
-            --bg-color: #060709;
+            var(--bg-color): #060709;
             --card-bg: #111215;
             --input-bg: rgba(0, 0, 0, 0.2); 
             --text-main: #ffffff;
             --text-sub: #9e9ea3;
             --accent: #6c63ff;
-            --accent-glow: #00d2ff; /* Couleur secondaire pour le Dual Glow */
+            --accent-glow: #00d2ff;
             --glow-mauve: rgba(108, 99, 255, 0.4);
             --btn-bg: rgba(255, 255, 255, 0.05);
             --faq-border: rgba(108, 99, 255, 0.1);
@@ -41,7 +40,8 @@
             --toggle-border: #D8D9FB; 
         }
 
-        * { box-sizing: border-box; outline: none; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
+        /* UPGRADE : Transition plus riche incluant le transform pour un look plus lisse */
+        * { box-sizing: border-box; outline: none; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease; }
 
         body {
             background-color: var(--bg-color);
@@ -52,6 +52,17 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+        }
+
+        /* ANIMATION 1 : Slide up fluide pour l'entrée sur la page */
+        @keyframes fadeUpIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .container { 
+            width: 100%; max-width: 420px; text-align: center; 
+            animation: fadeUpIn 0.8s ease-out; /* Application de l'animation d'entrée */
         }
 
         .status-badge {
@@ -82,9 +93,10 @@
             display: flex; align-items: center; justify-content: center;
             cursor: pointer; z-index: 2000;
         }
+        /* UPGRADE INTERACTION : Theme toggle se lève au survol */
+        .theme-toggle:hover { transform: scale(1.05); }
         .theme-toggle img { width: 20px; height: 20px; }
 
-        .container { width: 100%; max-width: 420px; text-align: center; }
         .icon-main { width: 90px; height: 90px; border-radius: 20px; margin-bottom: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.5); }
         h1 { font-size: 38px; font-weight: 800; margin: 0; letter-spacing: -1.8px; }
         .desc { color: var(--text-sub); margin: 15px 0 40px 0; font-size: 16px; line-height: 1.6; }
@@ -102,16 +114,9 @@
         .feature-card h3 { margin: 10px 0; font-size: 22px; font-weight: 700; }
         .feature-card p { color: var(--text-sub); font-size: 14px; margin-bottom: 25px; }
         
-        /* AMÉLIORATION : Animation Dual Glow (Violet + Cyan) */
         @keyframes glowBreath {
-            0%, 100% { 
-                box-shadow: 0 0 15px rgba(108, 99, 255, 0.5), 0 0 30px rgba(0, 210, 255, 0.2); 
-                transform: scale(1);
-            }
-            50% { 
-                box-shadow: 0 0 25px rgba(108, 99, 255, 0.7), 0 0 45px rgba(0, 210, 255, 0.4);
-                transform: scale(1.02);
-            }
+            0%, 100% { box-shadow: 0 0 15px rgba(108, 99, 255, 0.5), 0 0 30px rgba(0, 210, 255, 0.2); transform: scale(1); }
+            50% { box-shadow: 0 0 25px rgba(108, 99, 255, 0.7), 0 0 45px rgba(0, 210, 255, 0.4); transform: scale(1.02); }
         }
 
         #getBtn {
@@ -126,6 +131,10 @@
             letter-spacing: 1px;
             text-transform: uppercase;
         }
+
+        /* UPGRADE INTERACTION : Bouton GET se soulève pour inviter au clic */
+        #getBtn:hover { transform: translateY(-3px) scale(1.01); box-shadow: 0 10px 30px rgba(108, 99, 255, 0.6); }
+        #getBtn:active { transform: translateY(0); }
 
         #timer { 
             display: none; align-items: center; justify-content: center;
@@ -148,13 +157,18 @@
             transition: width 1s linear;
         }
 
-        .waiting-text { color: var(--text-sub); font-size: 13px; margin-top: 20px; display: none; text-align: center;}
+        /* UPGRADE VISUEL : Animation fadeIn pour le texte de chargement */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .waiting-text { color: var(--text-sub); font-size: 13px; margin-top: 20px; display: none; text-align: center; animation: fadeIn 0.5s;}
 
         #revealBox {
             background: var(--btn-bg); border-radius: 20px; padding: 20px;
             margin-top: 20px; width: 100%; text-align: left;
             border: 1px solid var(--faq-border); display: none;
+            /* ANIMATION 2 :Rideau qui s'ouvre pour l'apparition des codes */
+            animation: fadeUpIn 0.5s ease-out, scaleIn 0.4s ease-out;
         }
+        @keyframes scaleIn { from { transform: scale(0.9); } to { transform: scale(1); } }
 
         .reveal-title { color: var(--accent); font-weight: 700; margin-bottom: 6px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;}
         
@@ -172,16 +186,16 @@
             margin-right: 10px; flex-grow: 1; letter-spacing: -0.1px;
         }
 
-        /* RÉPARATION : Visibilité du texte en mode CLAIR */
-        [data-theme="light"] .copy-text {
-            color: #4d4680; /* Violet foncé pour un contraste parfait */
-        }
+        [data-theme="light"] .copy-text { color: #4d4680; }
 
         .copy-btn { 
             background: var(--accent); color: white; border: none; padding: 8px 15px; 
             border-radius: 8px; font-size: 12px; font-weight: 800; cursor: pointer; 
             flex-shrink: 0; text-transform: uppercase;
         }
+        /* UPGRADE INTERACTION : Bouton Copie s'intensifie au survol */
+        .copy-btn:hover { background: #8e87ff; transform: translateY(-2px); }
+        .copy-btn:active { transform: translateY(0); }
 
         .excuse-text { color: var(--text-sub); font-size: 12px; margin-top: 15px; display: none; line-height: 1.4; text-align: center;}
 
@@ -196,6 +210,8 @@
         }
 
         .faq-item { background: var(--card-bg); border-radius: 25px; padding: 20px; margin-bottom: 15px; border: 1px solid var(--faq-border); text-align: left; width: 100%; }
+        /* UPGRADE INTERACTION : FAQ Item s'illumine légèrement au survol */
+        .faq-item:hover { border-color: rgba(108, 99, 255, 0.3); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .faq-q { font-weight: 700; color: var(--accent); margin-bottom: 8px; font-size: 16px; }
         .faq-a { font-size: 14px; color: var(--text-sub); line-height: 1.5;}
 
@@ -205,6 +221,8 @@
             padding: 16px; border-radius: 20px; display: flex; align-items: center;
             justify-content: center; gap: 12px; font-weight: 600; border: 1px solid var(--faq-border);
         }
+        /* UPGRADE INTERACTION : Les boutons réseaux se soulèvent au survol */
+        .social-btn:hover { border-color: var(--accent); transform: translateY(-3px); }
         .social-btn img { width: 24px; }
 
         footer { margin: 60px 0 40px 0; font-size: 12px; color: var(--text-sub); }
@@ -237,7 +255,7 @@
                 <div class="progress-bar" id="progressBar"></div>
             </div>
 
-            <p class="waiting-text" id="waitingText">Please wait for the timer to finish before the Apple ID & password appear.</p>
+            <p class="waiting-text" id="waitingText">Connecting to secure servers...</p>
             
             <div id="revealBox">
                 <div class="reveal-group">
@@ -311,6 +329,16 @@
         const waitingText = document.getElementById('waitingText');
         const excuseText = document.getElementById('excuseText');
 
+        // UPGRADE TECHNIQUE : Tableau des messages de chargement
+        const loadingMessages = [
+            "Connecting to secure servers...",
+            "Checking account status...",
+            "Generating secure access tokens...",
+            "Fetching credentials...",
+            "Encrypting data transmission...",
+            "Almost ready, preparing display..."
+        ];
+
         getBtn.addEventListener('click', () => {
             getBtn.style.display = 'none';
             timerDisplay.style.display = 'flex';
@@ -319,6 +347,13 @@
             
             let seconds = 60;
             let total = 60;
+            let currentMsgIndex = 0;
+
+            // Changer de message toutes les 12 secondes
+            const messageInterval = setInterval(() => {
+                currentMsgIndex = (currentMsgIndex + 1) % loadingMessages.length;
+                waitingText.innerHTML = loadingMessages[currentMsgIndex];
+            }, 12000);
 
             const countdown = setInterval(() => {
                 seconds--;
@@ -328,6 +363,7 @@
 
                 if (seconds === 0) {
                     clearInterval(countdown);
+                    clearInterval(messageInterval); // Arrêter de changer les messages
                     timerDisplay.style.display = 'none';
                     progressCont.style.display = 'none';
                     waitingText.style.display = 'none';
