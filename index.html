@@ -11,13 +11,14 @@
 
     <style>
         :root {
+            /* AMÉLIORATION : Palette de couleurs plus profonde et premium */
             --bg-color: #060709;
             --card-bg: #111215;
             --input-bg: rgba(0, 0, 0, 0.2); 
             --text-main: #ffffff;
             --text-sub: #9e9ea3;
             --accent: #6c63ff;
-            --accent-glow: #00d2ff;
+            --accent-glow: #00d2ff; /* Couleur secondaire pour le Dual Glow */
             --glow-mauve: rgba(108, 99, 255, 0.4);
             --btn-bg: rgba(255, 255, 255, 0.05);
             --faq-border: rgba(108, 99, 255, 0.1);
@@ -55,12 +56,23 @@
 
         .status-badge {
             display: inline-flex;
-            align-items: center; gap: 6px;
-            background: rgba(46, 213, 115, 0.1); color: #2ed573;
-            padding: 4px 12px; border-radius: 20px;
-            font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 15px;
+            align-items: center;
+            gap: 6px;
+            background: rgba(46, 213, 115, 0.1);
+            color: #2ed573;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 15px;
         }
-        .dot { width: 6px; height: 6px; background: #2ed573; border-radius: 50%; animation: blink 1.5s infinite; }
+        .dot {
+            width: 6px; height: 6px;
+            background: #2ed573;
+            border-radius: 50%;
+            animation: blink 1.5s infinite;
+        }
         @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
 
         .theme-toggle {
@@ -77,6 +89,8 @@
         h1 { font-size: 38px; font-weight: 800; margin: 0; letter-spacing: -1.8px; }
         .desc { color: var(--text-sub); margin: 15px 0 40px 0; font-size: 16px; line-height: 1.6; }
 
+        .section-title { font-size: 24px; font-weight: 700; margin: 40px 0 20px 0; letter-spacing: -0.5px; }
+        
         .feature-card {
             background: var(--card-bg); border-radius: 35px; padding: 25px;
             width: 100%; border: 1px solid var(--faq-border);
@@ -88,36 +102,112 @@
         .feature-card h3 { margin: 10px 0; font-size: 22px; font-weight: 700; }
         .feature-card p { color: var(--text-sub); font-size: 14px; margin-bottom: 25px; }
         
+        /* AMÉLIORATION : Animation Dual Glow (Violet + Cyan) */
         @keyframes glowBreath {
-            0%, 100% { box-shadow: 0 0 15px rgba(108, 99, 255, 0.5), 0 0 30px rgba(0, 210, 255, 0.2); transform: scale(1); }
-            50% { box-shadow: 0 0 25px rgba(108, 99, 255, 0.7), 0 0 45px rgba(0, 210, 255, 0.4); transform: scale(1.02); }
+            0%, 100% { 
+                box-shadow: 0 0 15px rgba(108, 99, 255, 0.5), 0 0 30px rgba(0, 210, 255, 0.2); 
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 0 25px rgba(108, 99, 255, 0.7), 0 0 45px rgba(0, 210, 255, 0.4);
+                transform: scale(1.02);
+            }
         }
 
-        /* Style des boutons GET */
-        #getBtn, .get-credential-btn {
+        #getBtn {
             width: 100%; 
             background: linear-gradient(135deg, #6c63ff 0%, #00d2ff 100%); 
-            color: white; padding: 18px; border-radius: 25px; 
-            font-weight: 800; font-size: 20px;
+            color: white;
+            padding: 18px; border-radius: 25px; 
+            font-weight: 800; 
+            font-size: 20px;
             cursor: pointer; border: none; 
             animation: glowBreath 3s infinite ease-in-out;
-            letter-spacing: 1px; text-transform: uppercase;
-            transition: opacity 0.3s ease;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
-        #timer { display: none; align-items: center; justify-content: center; width: 100%; color: var(--accent); font-weight: 800; font-size: 24px; margin-bottom: 10px; }
+        #timer { 
+            display: none; align-items: center; justify-content: center;
+            width: 100%; color: var(--accent); font-weight: 800; font-size: 24px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px var(--glow-mauve);
+        }
 
-        .progress-container { display: none; width: 100%; height: 8px; background: rgba(0,0,0,0.2); border-radius: 10px; margin-top: 15px; overflow: hidden; }
-        .progress-bar { width: 0%; height: 100%; background: linear-gradient(90deg, #6c63ff, #00d2ff); transition: width 1s linear; }
+        .progress-container {
+            display: none;
+            width: 100%; height: 8px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+        .progress-bar {
+            width: 0%; height: 100%;
+            background: linear-gradient(90deg, #6c63ff, #00d2ff);
+            transition: width 1s linear;
+        }
 
-        #revealBox { background: var(--btn-bg); border-radius: 20px; padding: 20px; margin-top: 20px; width: 100%; text-align: left; border: 1px solid var(--faq-border); display: none; }
-        .reveal-title { color: var(--accent); font-weight: 700; margin-bottom: 10px; font-size: 11px; text-transform: uppercase; }
+        .waiting-text { color: var(--text-sub); font-size: 13px; margin-top: 20px; display: none; text-align: center;}
+
+        #revealBox {
+            background: var(--btn-bg); border-radius: 20px; padding: 20px;
+            margin-top: 20px; width: 100%; text-align: left;
+            border: 1px solid var(--faq-border); display: none;
+        }
+
+        .reveal-title { color: var(--accent); font-weight: 700; margin-bottom: 6px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;}
+        
+        .copy-wrapper {
+            display: flex; align-items: center; justify-content: space-between;
+            background: var(--input-bg); padding: 10px 10px 10px 15px; 
+            border-radius: 12px; border: 1px solid rgba(108, 99, 255, 0.1); margin-bottom: 12px;
+        }
+
+        .copy-text { 
+            font-size: 16px; 
+            color: #d1c4ff; /* Lavande pastel par défaut */
+            font-family: ui-monospace, Menlo, Monaco, 'Courier New', monospace;
+            overflow: hidden; white-space: nowrap; text-overflow: ellipsis; 
+            margin-right: 10px; flex-grow: 1; letter-spacing: -0.1px;
+        }
+
+        /* RÉPARATION : Visibilité du texte en mode CLAIR */
+        [data-theme="light"] .copy-text {
+            color: #4d4680; /* Violet foncé pour un contraste parfait */
+        }
+
+        .copy-btn { 
+            background: var(--accent); color: white; border: none; padding: 8px 15px; 
+            border-radius: 8px; font-size: 12px; font-weight: 800; cursor: pointer; 
+            flex-shrink: 0; text-transform: uppercase;
+        }
+
+        .excuse-text { color: var(--text-sub); font-size: 12px; margin-top: 15px; display: none; line-height: 1.4; text-align: center;}
+
+        .next-update {
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px dashed var(--faq-border);
+            color: var(--text-sub);
+            font-size: 11px;
+            font-weight: 600;
+            display: flex; align-items: center; gap: 8px;
+        }
 
         .faq-item { background: var(--card-bg); border-radius: 25px; padding: 20px; margin-bottom: 15px; border: 1px solid var(--faq-border); text-align: left; width: 100%; }
-        .faq-q { font-weight: 700; color: var(--accent); margin-bottom: 8px; }
-        .faq-a { font-size: 14px; color: var(--text-sub); }
+        .faq-q { font-weight: 700; color: var(--accent); margin-bottom: 8px; font-size: 16px; }
+        .faq-a { font-size: 14px; color: var(--text-sub); line-height: 1.5;}
 
-        footer { margin: 40px 0; font-size: 12px; color: var(--text-sub); }
+        .social-container { display: flex; flex-direction: column; gap: 12px; margin-top: 50px; width: 100%; }
+        .social-btn {
+            background: var(--card-bg); color: var(--text-main); text-decoration: none;
+            padding: 16px; border-radius: 20px; display: flex; align-items: center;
+            justify-content: center; gap: 12px; font-weight: 600; border: 1px solid var(--faq-border);
+        }
+        .social-btn img { width: 24px; }
+
+        footer { margin: 60px 0 40px 0; font-size: 12px; color: var(--text-sub); }
     </style>
 </head>
 <body>
@@ -127,80 +217,131 @@
     </div>
 
     <div class="container">
-        <img src="/image/BlueApple.png" class="icon-main">
+        <img src="/image/BlueApple.png" class="icon-main" alt="Logo">
         <h1>Apple Vip</h1>
-        <p class="desc">The best way to get any apps and games for free.</p>
+        
+        <p class="desc">The best way to get any apps and games for free: fast, reliable, and always working.</p>
 
+        <h2 class="section-title">Apple IDs</h2>
         <div class="feature-card">
             <div class="status-badge"><div class="dot"></div> Status: Working</div>
-            <img src="/image/AppleID.png">
-            <h3>Minecraft & GTA ID</h3>
+
+            <img src="/image/AppleID.png" alt="Minecraft & Apple TV">
+            <h3>Minecraft & GTA Vice City ID</h3>
+            <p>Get instant access to Minecraft and GTA Vice City and more paid apps for free. This service is exclusive to iOS users and guaranteed safe.</p>
             
             <button id="getBtn">Get</button>
             
             <div id="timer">0:60</div>
-            <div class="progress-container" id="progressCont"><div class="progress-bar" id="progressBar"></div></div>
+            <div class="progress-container" id="progressCont">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
 
+            <p class="waiting-text" id="waitingText">Please wait for the timer to finish before the Apple ID & password appear.</p>
+            
             <div id="revealBox">
-                <div style="margin-bottom: 20px;">
+                <div class="reveal-group">
                     <div class="reveal-title">Apple ID</div>
-                    <button class="get-credential-btn" onclick="copyAction('israel333300@isteal-it.com', this)">GET</button>
+                    <div class="copy-wrapper">
+                        <div class="copy-text" id="appleIdText">israel333300@isteal-it.com</div>
+                        <button class="copy-btn" onclick="copyText('appleIdText', this)">COPY</button>
+                    </div>
                 </div>
-                <div>
+                <div class="reveal-group">
                     <div class="reveal-title">Password</div>
-                    <button class="get-credential-btn" onclick="copyAction('FuckAllah8]mobimeg.com', this)">GET</button>
+                    <div class="copy-wrapper">
+                        <div class="copy-text" id="passwordText">FuckAllah8]mobimeg.com</div>
+                        <button class="copy-btn" onclick="copyText('passwordText', this)">COPY</button>
+                    </div>
                 </div>
+            </div>
+            
+            <p class="excuse-text" id="excuseText">We sincerely apologize for the choice of the password. These accounts are shared and we do not manage the password selection ourselves.</p>
+
+            <div class="next-update">
+                <span>🔥</span> Next Update: GTA San Andreas & Bloons TD 6 soon...
             </div>
         </div>
 
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        
         <div class="faq-item">
-            <div class="faq-q">How to use?</div>
-            <div class="faq-a">Login via the App Store only. Never use iCloud.</div>
+            <div class="faq-q">How to use the apple id</div>
+            <div class="faq-a">Login via the App Store only. Tap your profile → Purchased → Library. All paid apps will be available there for free download.</div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-q">Is it safe?</div>
+            <div class="faq-a">100% Safe. Just remember: Only use the App Store. Never sign in to iCloud or your phone settings</div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-q">Account locked?</div>
+            <div class="faq-a">IDs are shared. If one is locked, don't worry—our system resets and updates all accounts every 24 hours. Just check back later.</div>
         </div>
 
-        <footer>© 2026 Qx.dev95</footer>
+        <div class="social-container">
+            <a href="https://www.tiktok.com/@lk_9292" target="_blank" class="social-btn"><img src="/image/tiktok.png"> TikTok</a>
+            <a href="https://www.instagram.com/qx.dev95" target="_blank" class="social-btn"><img src="/image/instagram.png"> Instagram</a>
+            <a href="https://discord.gg/keEEQ6bBSB" target="_blank" class="social-btn"><img src="/image/discord.png"> Discord</a>
+        </div>
+        <footer>© 2026 Qx.dev95. All rights reserved.</footer>
     </div>
 
     <script>
-        // Thème
         const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const body = document.body;
+
         themeToggle.addEventListener('click', () => {
-            document.body.toggleAttribute('data-theme', document.body.getAttribute('data-theme') !== 'light');
+            if (body.getAttribute('data-theme') === 'light') {
+                body.removeAttribute('data-theme');
+                themeIcon.src = '/image/sun.png'; 
+            } else {
+                body.setAttribute('data-theme', 'light');
+                themeIcon.src = '/image/moon.png';
+            }
         });
 
-        // Timer
         const getBtn = document.getElementById('getBtn');
+        const timerDisplay = document.getElementById('timer');
+        const progressCont = document.getElementById('progressCont');
+        const progressBar = document.getElementById('progressBar');
+        const revealBox = document.getElementById('revealBox');
+        const waitingText = document.getElementById('waitingText');
+        const excuseText = document.getElementById('excuseText');
+
         getBtn.addEventListener('click', () => {
             getBtn.style.display = 'none';
-            document.getElementById('timer').style.display = 'flex';
-            document.getElementById('progressCont').style.display = 'block';
+            timerDisplay.style.display = 'flex';
+            progressCont.style.display = 'block';
+            waitingText.style.display = 'block';
             
-            let sec = 60;
-            const interval = setInterval(() => {
-                sec--;
-                document.getElementById('timer').innerText = `0:${sec < 10 ? '0'+sec : sec}`;
-                document.getElementById('progressBar').style.width = ((60-sec)/60)*100 + '%';
-                if(sec <= 0) {
-                    clearInterval(interval);
-                    document.getElementById('timer').style.display = 'none';
-                    document.getElementById('progressCont').style.display = 'none';
-                    document.getElementById('revealBox').style.display = 'block';
+            let seconds = 60;
+            let total = 60;
+
+            const countdown = setInterval(() => {
+                seconds--;
+                timerDisplay.innerHTML = `0:${seconds < 10 ? '0' + seconds : seconds}`;
+                let percent = ((total - seconds) / total) * 100;
+                progressBar.style.width = percent + "%";
+
+                if (seconds === 0) {
+                    clearInterval(countdown);
+                    timerDisplay.style.display = 'none';
+                    progressCont.style.display = 'none';
+                    waitingText.style.display = 'none';
+                    revealBox.style.display = 'block';
+                    excuseText.style.display = 'block';
                 }
             }, 1000);
         });
 
-        // Copie avec Animation Fade
-        function copyAction(text, btn) {
+        function copyText(id, btn) {
+            const text = document.getElementById(id).innerText;
             navigator.clipboard.writeText(text).then(() => {
-                btn.style.opacity = '0';
-                setTimeout(() => {
-                    btn.innerText = "COPIED!";
-                    btn.style.opacity = '1';
-                    setTimeout(() => {
-                        btn.style.opacity = '0';
-                        setTimeout(() => { btn.innerText = "GET"; btn.style.opacity = '1'; }, 300);
-                    }, 2000);
-                }, 300);
+                btn.innerText = "COPIED!";
+                setTimeout(() => { btn.innerText = "COPY"; }, 2000);
             });
         }
     </script>
