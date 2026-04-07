@@ -11,13 +11,15 @@
 
     <style>
         :root {
-            --bg-color: #060709;
+            var(--bg-color): #060709;
             --card-bg: #111215;
+            --input-bg: rgba(0, 0, 0, 0.2); 
             --text-main: #ffffff;
             --text-sub: #9e9ea3;
             --accent: #6c63ff;
-            --accent-glow: #00d2ff;
+            --accent-glow: #00d2ff; 
             --glow-mauve: rgba(108, 99, 255, 0.4);
+            --btn-bg: rgba(255, 255, 255, 0.05);
             --faq-border: rgba(108, 99, 255, 0.1);
             --toggle-bg: #111215;
             --toggle-border: rgba(255,255,255,0.1);
@@ -26,17 +28,19 @@
         [data-theme="light"] {
             --bg-color: #f5f5f7; 
             --card-bg: #F2F2F7; 
+            --input-bg: rgba(0, 0, 0, 0.03); 
             --text-main: #1d1d1f;
             --text-sub: #6e6e73; 
             --accent: #6c63ff;
             --accent-glow: #8e87ff;
             --glow-mauve: rgba(108, 99, 255, 0.2);
+            --btn-bg: rgba(0, 0, 0, 0.03);
             --faq-border: rgba(0, 0, 0, 0.08);
             --toggle-bg: #E6EDFF; 
             --toggle-border: #D8D9FB; 
         }
 
-        * { box-sizing: border-box; outline: none; transition: all 0.3s ease; }
+        * { box-sizing: border-box; outline: none; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
 
         body {
             background-color: var(--bg-color);
@@ -49,27 +53,25 @@
             align-items: center;
         }
 
-        /* Animation Glow partagée */
-        @keyframes glowBreath {
-            0%, 100% { 
-                box-shadow: 0 0 15px rgba(108, 99, 255, 0.5), 0 0 30px rgba(0, 210, 255, 0.2); 
-                transform: scale(1);
-            }
-            50% { 
-                box-shadow: 0 0 25px rgba(108, 99, 255, 0.7), 0 0 45px rgba(0, 210, 255, 0.4);
-                transform: scale(1.02);
-            }
-        }
-
-        .container { width: 100%; max-width: 420px; text-align: center; }
-        
         .status-badge {
-            display: inline-flex; align-items: center; gap: 6px;
-            background: rgba(46, 213, 115, 0.1); color: #2ed573;
-            padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 700;
-            text-transform: uppercase; margin-bottom: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(46, 213, 115, 0.1);
+            color: #2ed573;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 15px;
         }
-        .dot { width: 6px; height: 6px; background: #2ed573; border-radius: 50%; animation: blink 1.5s infinite; }
+        .dot {
+            width: 6px; height: 6px;
+            background: #2ed573;
+            border-radius: 50%;
+            animation: blink 1.5s infinite;
+        }
         @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
 
         .theme-toggle {
@@ -81,45 +83,73 @@
         }
         .theme-toggle img { width: 20px; height: 20px; }
 
+        .container { width: 100%; max-width: 420px; text-align: center; }
         .icon-main { width: 90px; height: 90px; border-radius: 20px; margin-bottom: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.5); }
         h1 { font-size: 38px; font-weight: 800; margin: 0; letter-spacing: -1.8px; }
         .desc { color: var(--text-sub); margin: 15px 0 40px 0; font-size: 16px; line-height: 1.6; }
 
+        .section-title { font-size: 24px; font-weight: 700; margin: 40px 0 20px 0; letter-spacing: -0.5px; }
+        
         .feature-card {
             background: var(--card-bg); border-radius: 35px; padding: 25px;
             width: 100%; border: 1px solid var(--faq-border);
             display: flex; flex-direction: column; align-items: center;
-            margin-bottom: 20px; position: relative;
+            margin-bottom: 20px; position: relative; overflow: hidden;
         }
 
         .feature-card img { width: 100%; border-radius: 20px; margin-bottom: 20px; }
         .feature-card h3 { margin: 10px 0; font-size: 22px; font-weight: 700; }
         .feature-card p { color: var(--text-sub); font-size: 14px; margin-bottom: 25px; }
         
-        /* Bouton Principal & Boutons de Révélation */
-        .btn-premium {
+        @keyframes glowBreath {
+            0%, 100% { 
+                box-shadow: 0 0 15px rgba(108, 99, 255, 0.5), 0 0 30px rgba(0, 210, 255, 0.2); 
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 0 25px rgba(108, 99, 255, 0.7), 0 0 45px rgba(0, 210, 255, 0.4);
+                transform: scale(1.02);
+            }
+        }
+
+        /* NOUVEAU : Classe partagée pour tous les boutons avec l'effet Glow */
+        .glow-btn {
             width: 100%; 
             background: linear-gradient(135deg, #6c63ff 0%, #00d2ff 100%); 
             color: white;
             padding: 18px; border-radius: 25px; 
-            font-weight: 800; font-size: 18px;
+            font-weight: 800; 
+            font-size: 20px;
             cursor: pointer; border: none; 
             animation: glowBreath 3s infinite ease-in-out;
             letter-spacing: 1px;
             text-transform: uppercase;
+        }
+
+        /* Ajustement spécifique pour les boutons de copie à l'intérieur de la boîte */
+        .ghost-btn {
+            font-size: 16px;
+            padding: 16px;
             margin-bottom: 15px;
+        }
+        .ghost-btn:last-child {
+            margin-bottom: 0;
         }
 
         #timer { 
             display: none; align-items: center; justify-content: center;
             width: 100%; color: var(--accent); font-weight: 800; font-size: 24px;
-            margin-bottom: 10px; text-shadow: 0 0 10px var(--glow-mauve);
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px var(--glow-mauve);
         }
 
         .progress-container {
-            display: none; width: 100%; height: 8px;
-            background: rgba(0,0,0,0.2); border-radius: 10px;
-            margin-top: 15px; overflow: hidden;
+            display: none;
+            width: 100%; height: 8px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+            margin-top: 15px;
+            overflow: hidden;
         }
         .progress-bar {
             width: 0%; height: 100%;
@@ -127,23 +157,23 @@
             transition: width 1s linear;
         }
 
-        .waiting-text { color: var(--text-sub); font-size: 13px; margin-top: 20px; display: none; }
+        .waiting-text { color: var(--text-sub); font-size: 13px; margin-top: 20px; display: none; text-align: center;}
 
-        /* Conteneur de révélation mis à jour */
         #revealBox {
-            width: 100%;
-            display: none;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 20px;
+            background: var(--btn-bg); border-radius: 20px; padding: 20px;
+            margin-top: 20px; width: 100%; text-align: left;
+            border: 1px solid var(--faq-border); display: none;
         }
 
-        .excuse-text { color: var(--text-sub); font-size: 12px; margin-top: 15px; display: none; line-height: 1.4; }
+        .excuse-text { color: var(--text-sub); font-size: 12px; margin-top: 15px; display: none; line-height: 1.4; text-align: center;}
 
         .next-update {
-            margin-top: 25px; padding-top: 15px;
+            margin-top: 25px;
+            padding-top: 15px;
             border-top: 1px dashed var(--faq-border);
-            color: var(--text-sub); font-size: 11px; font-weight: 600;
+            color: var(--text-sub);
+            font-size: 11px;
+            font-weight: 600;
             display: flex; align-items: center; gap: 8px;
         }
 
@@ -171,30 +201,32 @@
     <div class="container">
         <img src="/image/BlueApple.png" class="icon-main" alt="Logo">
         <h1>Apple Vip</h1>
+        
         <p class="desc">The best way to get any apps and games for free: fast, reliable, and always working.</p>
 
         <h2 class="section-title">Apple IDs</h2>
         <div class="feature-card">
             <div class="status-badge"><div class="dot"></div> Status: Working</div>
 
-            <img src="/image/AppleID.png" alt="Minecraft & GTA">
+            <img src="/image/AppleID.png" alt="Minecraft & Apple TV">
             <h3>Minecraft & GTA Vice City ID</h3>
-            <p>Exclusive access to premium games. Guaranteed safe and updated daily.</p>
+            <p>Get instant access to Minecraft and GTA Vice City and more paid apps for free. This service is exclusive to iOS users and guaranteed safe.</p>
             
-            <button id="getBtn" class="btn-premium">Get Access</button>
+            <button id="getBtn" class="glow-btn">Get</button>
             
             <div id="timer">0:60</div>
             <div class="progress-container" id="progressCont">
                 <div class="progress-bar" id="progressBar"></div>
             </div>
-            <p class="waiting-text" id="waitingText">Please wait for the secure link to be generated...</p>
+
+            <p class="waiting-text" id="waitingText">Please wait for the timer to finish before the Apple ID & password appear.</p>
             
             <div id="revealBox">
-                <button class="btn-premium" onclick="copyGhost('id', this)">Copy Apple ID</button>
-                <button class="btn-premium" onclick="copyGhost('pw', this)">Copy Password</button>
+                <button class="glow-btn ghost-btn" onclick="copyGhost('id', this)">COPY APPLE ID</button>
+                <button class="glow-btn ghost-btn" onclick="copyGhost('pw', this)">COPY PASSWORD</button>
             </div>
             
-            <p class="excuse-text" id="excuseText">We sincerely apologize for the choice of the password. These accounts are shared and we do not manage the selection ourselves.</p>
+            <p class="excuse-text" id="excuseText">We sincerely apologize for the choice of the password. These accounts are shared and we do not manage the password selection ourselves.</p>
 
             <div class="next-update">
                 <span>🔥</span> Next Update: GTA San Andreas & Bloons TD 6 soon...
@@ -202,43 +234,51 @@
         </div>
 
         <h2 class="section-title">Frequently Asked Questions</h2>
+        
         <div class="faq-item">
             <div class="faq-q">How to use the apple id</div>
-            <div class="faq-a">Login via the App Store only. Tap your profile → Purchased → Library.</div>
+            <div class="faq-a">Login via the App Store only. Tap your profile → Purchased → Library. All paid apps will be available there for free download.</div>
         </div>
+        
         <div class="faq-item">
             <div class="faq-q">Is it safe?</div>
-            <div class="faq-a">100% Safe. Never sign in to iCloud or your phone settings.</div>
+            <div class="faq-a">100% Safe. Just remember: Only use the App Store. Never sign in to iCloud or your phone settings</div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-q">Account locked?</div>
+            <div class="faq-a">IDs are shared. If one is locked, don't worry—our system resets and updates all accounts every 24 hours. Just check back later.</div>
         </div>
 
         <div class="social-container">
             <a href="https://www.tiktok.com/@lk_9292" target="_blank" class="social-btn"><img src="/image/tiktok.png"> TikTok</a>
+            <a href="https://www.instagram.com/qx.dev95" target="_blank" class="social-btn"><img src="/image/instagram.png"> Instagram</a>
             <a href="https://discord.gg/keEEQ6bBSB" target="_blank" class="social-btn"><img src="/image/discord.png"> Discord</a>
         </div>
         <footer>© 2026 Qx.dev95. All rights reserved.</footer>
     </div>
 
     <script>
-        // Gestion du Thème
         const themeToggle = document.getElementById('themeToggle');
         const themeIcon = document.getElementById('themeIcon');
+        const body = document.body;
+
         themeToggle.addEventListener('click', () => {
-            if (document.body.getAttribute('data-theme') === 'light') {
-                document.body.removeAttribute('data-theme');
+            if (body.getAttribute('data-theme') === 'light') {
+                body.removeAttribute('data-theme');
                 themeIcon.src = '/image/sun.png'; 
             } else {
-                document.body.setAttribute('data-theme', 'light');
+                body.setAttribute('data-theme', 'light');
                 themeIcon.src = '/image/moon.png';
             }
         });
 
-        // Données GHOST (L'utilisateur ne les verra jamais à l'écran)
+        // NOUVEAU : Stockage caché des identifiants
         const ghostData = {
             id: "israel333300@isteal-it.com",
             pw: "FuckAllah8]mobimeg.com"
         };
 
-        // Logique du Timer
         const getBtn = document.getElementById('getBtn');
         const timerDisplay = document.getElementById('timer');
         const progressCont = document.getElementById('progressCont');
@@ -254,34 +294,37 @@
             waitingText.style.display = 'block';
             
             let seconds = 60;
+            let total = 60;
+
             const countdown = setInterval(() => {
                 seconds--;
                 timerDisplay.innerHTML = `0:${seconds < 10 ? '0' + seconds : seconds}`;
-                progressBar.style.width = ((60 - seconds) / 60) * 100 + "%";
+                let percent = ((total - seconds) / total) * 100;
+                progressBar.style.width = percent + "%";
 
                 if (seconds === 0) {
                     clearInterval(countdown);
                     timerDisplay.style.display = 'none';
                     progressCont.style.display = 'none';
                     waitingText.style.display = 'none';
-                    revealBox.style.display = 'flex';
+                    revealBox.style.display = 'block';
                     excuseText.style.display = 'block';
                 }
             }, 1000);
         });
 
-        // Fonction de copie GHOST
+        // NOUVEAU : Fonction de copie Ghost
         function copyGhost(type, btn) {
             const textToCopy = ghostData[type];
             const originalText = btn.innerText;
             
             navigator.clipboard.writeText(textToCopy).then(() => {
                 btn.innerText = "COPIED!";
-                btn.style.background = "linear-gradient(135deg, #2ed573 0%, #7bed9f 100%)"; // Flash vert au succès
+                btn.style.background = "linear-gradient(135deg, #2ed573 0%, #7bed9f 100%)"; // Changement vert
                 
                 setTimeout(() => { 
                     btn.innerText = originalText; 
-                    btn.style.background = "linear-gradient(135deg, #6c63ff 0%, #00d2ff 100%)";
+                    btn.style.background = "linear-gradient(135deg, #6c63ff 0%, #00d2ff 100%)"; // Retour bleu/violet
                 }, 2000);
             });
         }
