@@ -1,79 +1,208 @@
-const themeToggle = document.getElementById('themeToggle');
-const themeIcon = document.getElementById('themeIcon');
-const body = document.body;
-
-// Gestion du Thème
-themeToggle.addEventListener('click', () => {
-    if (body.getAttribute('data-theme') === 'light') {
-        body.removeAttribute('data-theme');
-        themeIcon.src = '/image/sun.png'; 
-    } else {
-        body.setAttribute('data-theme', 'light');
-        themeIcon.src = '/image/moon.png';
-    }
-});
-
-// Logique du Timer et Révélation
-const getBtn = document.getElementById('getBtn');
-const timerDisplay = document.getElementById('timer');
-const progressCont = document.getElementById('progressCont');
-const progressBar = document.getElementById('progressBar');
-const revealBox = document.getElementById('revealBox');
-const waitingText = document.getElementById('waitingText');
-const excuseText = document.getElementById('excuseText');
-
-getBtn.addEventListener('click', () => {
-    // 1. Masquer le bouton avec un petit effet de fondu si souhaité
-    getBtn.style.display = 'none';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Apple Vip</title>
     
-    // 2. Afficher les éléments du timer
-    timerDisplay.style.display = 'flex';
-    progressCont.style.display = 'block';
-    waitingText.style.display = 'block';
-    
-    let seconds = 60;
-    const total = 60;
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-    // Animation immédiate de la barre à 0% pour éviter le flash
-    progressBar.style.width = "0%";
-
-    const countdown = setInterval(() => {
-        seconds--;
-        
-        // Affichage formaté (ex: 0:09 au lieu de 0:9)
-        timerDisplay.innerHTML = `0:${seconds < 10 ? '0' + seconds : seconds}`;
-        
-        // Calcul du pourcentage
-        let percent = ((total - seconds) / total) * 100;
-        progressBar.style.width = percent + "%";
-
-        if (seconds <= 0) {
-            clearInterval(countdown);
-            
-            // Transition vers l'ID Board
-            timerDisplay.style.display = 'none';
-            progressCont.style.display = 'none';
-            waitingText.style.display = 'none';
-            
-            // Apparition de la box avec une animation
-            revealBox.style.display = 'block';
-            revealBox.style.animation = 'fadeIn 0.5s ease-out';
-            excuseText.style.display = 'block';
+    <style>
+        :root {
+            --bg-color: #060709;
+            --card-bg: #111215;
+            --input-bg: rgba(0, 0, 0, 0.2); 
+            --text-main: #ffffff;
+            --text-sub: #9e9ea3;
+            --accent: #6c63ff;
+            --accent-glow: #00d2ff;
+            --glow-mauve: rgba(108, 99, 255, 0.4);
+            --btn-bg: rgba(255, 255, 255, 0.05);
+            --faq-border: rgba(108, 99, 255, 0.1);
+            --toggle-bg: #111215;
+            --toggle-border: rgba(255,255,255,0.1);
         }
-    }, 1000);
-});
 
-// Fonction de copie améliorée
-function copyText(id, btn) {
-    const text = document.getElementById(id).innerText;
-    navigator.clipboard.writeText(text).then(() => {
-        const originalText = btn.innerText;
-        btn.innerText = "COPIED!";
-        btn.style.background = "#2ed573"; // Devient vert au clic
+        [data-theme="light"] {
+            --bg-color: #f5f5f7; 
+            --card-bg: #F2F2F7; 
+            --input-bg: rgba(0, 0, 0, 0.03); 
+            --text-main: #1d1d1f;
+            --text-sub: #6e6e73; 
+            --accent: #6c63ff;
+            --accent-glow: #8e87ff;
+            --glow-mauve: rgba(108, 99, 255, 0.2);
+            --btn-bg: rgba(0, 0, 0, 0.03);
+            --faq-border: rgba(0, 0, 0, 0.08);
+            --toggle-bg: #E6EDFF; 
+            --toggle-border: #D8D9FB; 
+        }
+
+        * { box-sizing: border-box; outline: none; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center; gap: 6px;
+            background: rgba(46, 213, 115, 0.1); color: #2ed573;
+            padding: 4px 12px; border-radius: 20px;
+            font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 15px;
+        }
+        .dot { width: 6px; height: 6px; background: #2ed573; border-radius: 50%; animation: blink 1.5s infinite; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+
+        .theme-toggle {
+            position: fixed; top: 25px; right: 25px;
+            background: var(--toggle-bg); border: 1px solid var(--toggle-border);
+            width: 42px; height: 42px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; z-index: 2000;
+        }
+        .theme-toggle img { width: 20px; height: 20px; }
+
+        .container { width: 100%; max-width: 420px; text-align: center; }
+        .icon-main { width: 90px; height: 90px; border-radius: 20px; margin-bottom: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.5); }
+        h1 { font-size: 38px; font-weight: 800; margin: 0; letter-spacing: -1.8px; }
+        .desc { color: var(--text-sub); margin: 15px 0 40px 0; font-size: 16px; line-height: 1.6; }
+
+        .feature-card {
+            background: var(--card-bg); border-radius: 35px; padding: 25px;
+            width: 100%; border: 1px solid var(--faq-border);
+            display: flex; flex-direction: column; align-items: center;
+            margin-bottom: 20px; position: relative; overflow: hidden;
+        }
+
+        .feature-card img { width: 100%; border-radius: 20px; margin-bottom: 20px; }
+        .feature-card h3 { margin: 10px 0; font-size: 22px; font-weight: 700; }
+        .feature-card p { color: var(--text-sub); font-size: 14px; margin-bottom: 25px; }
         
-        setTimeout(() => { 
-            btn.innerText = originalText; 
-            btn.style.background = ""; // Reprend la couleur du thème
-        }, 2000);
-    });
-}
+        @keyframes glowBreath {
+            0%, 100% { box-shadow: 0 0 15px rgba(108, 99, 255, 0.5), 0 0 30px rgba(0, 210, 255, 0.2); transform: scale(1); }
+            50% { box-shadow: 0 0 25px rgba(108, 99, 255, 0.7), 0 0 45px rgba(0, 210, 255, 0.4); transform: scale(1.02); }
+        }
+
+        /* Style des boutons GET */
+        #getBtn, .get-credential-btn {
+            width: 100%; 
+            background: linear-gradient(135deg, #6c63ff 0%, #00d2ff 100%); 
+            color: white; padding: 18px; border-radius: 25px; 
+            font-weight: 800; font-size: 20px;
+            cursor: pointer; border: none; 
+            animation: glowBreath 3s infinite ease-in-out;
+            letter-spacing: 1px; text-transform: uppercase;
+            transition: opacity 0.3s ease;
+        }
+
+        #timer { display: none; align-items: center; justify-content: center; width: 100%; color: var(--accent); font-weight: 800; font-size: 24px; margin-bottom: 10px; }
+
+        .progress-container { display: none; width: 100%; height: 8px; background: rgba(0,0,0,0.2); border-radius: 10px; margin-top: 15px; overflow: hidden; }
+        .progress-bar { width: 0%; height: 100%; background: linear-gradient(90deg, #6c63ff, #00d2ff); transition: width 1s linear; }
+
+        #revealBox { background: var(--btn-bg); border-radius: 20px; padding: 20px; margin-top: 20px; width: 100%; text-align: left; border: 1px solid var(--faq-border); display: none; }
+        .reveal-title { color: var(--accent); font-weight: 700; margin-bottom: 10px; font-size: 11px; text-transform: uppercase; }
+
+        .faq-item { background: var(--card-bg); border-radius: 25px; padding: 20px; margin-bottom: 15px; border: 1px solid var(--faq-border); text-align: left; width: 100%; }
+        .faq-q { font-weight: 700; color: var(--accent); margin-bottom: 8px; }
+        .faq-a { font-size: 14px; color: var(--text-sub); }
+
+        footer { margin: 40px 0; font-size: 12px; color: var(--text-sub); }
+    </style>
+</head>
+<body>
+
+    <div class="theme-toggle" id="themeToggle">
+        <img src="/image/sun.png" id="themeIcon" alt="Switch">
+    </div>
+
+    <div class="container">
+        <img src="/image/BlueApple.png" class="icon-main">
+        <h1>Apple Vip</h1>
+        <p class="desc">The best way to get any apps and games for free.</p>
+
+        <div class="feature-card">
+            <div class="status-badge"><div class="dot"></div> Status: Working</div>
+            <img src="/image/AppleID.png">
+            <h3>Minecraft & GTA ID</h3>
+            
+            <button id="getBtn">Get</button>
+            
+            <div id="timer">0:60</div>
+            <div class="progress-container" id="progressCont"><div class="progress-bar" id="progressBar"></div></div>
+
+            <div id="revealBox">
+                <div style="margin-bottom: 20px;">
+                    <div class="reveal-title">Apple ID</div>
+                    <button class="get-credential-btn" onclick="copyAction('israel333300@isteal-it.com', this)">GET</button>
+                </div>
+                <div>
+                    <div class="reveal-title">Password</div>
+                    <button class="get-credential-btn" onclick="copyAction('FuckAllah8]mobimeg.com', this)">GET</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-q">How to use?</div>
+            <div class="faq-a">Login via the App Store only. Never use iCloud.</div>
+        </div>
+
+        <footer>© 2026 Qx.dev95</footer>
+    </div>
+
+    <script>
+        // Thème
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.toggleAttribute('data-theme', document.body.getAttribute('data-theme') !== 'light');
+        });
+
+        // Timer
+        const getBtn = document.getElementById('getBtn');
+        getBtn.addEventListener('click', () => {
+            getBtn.style.display = 'none';
+            document.getElementById('timer').style.display = 'flex';
+            document.getElementById('progressCont').style.display = 'block';
+            
+            let sec = 60;
+            const interval = setInterval(() => {
+                sec--;
+                document.getElementById('timer').innerText = `0:${sec < 10 ? '0'+sec : sec}`;
+                document.getElementById('progressBar').style.width = ((60-sec)/60)*100 + '%';
+                if(sec <= 0) {
+                    clearInterval(interval);
+                    document.getElementById('timer').style.display = 'none';
+                    document.getElementById('progressCont').style.display = 'none';
+                    document.getElementById('revealBox').style.display = 'block';
+                }
+            }, 1000);
+        });
+
+        // Copie avec Animation Fade
+        function copyAction(text, btn) {
+            navigator.clipboard.writeText(text).then(() => {
+                btn.style.opacity = '0';
+                setTimeout(() => {
+                    btn.innerText = "COPIED!";
+                    btn.style.opacity = '1';
+                    setTimeout(() => {
+                        btn.style.opacity = '0';
+                        setTimeout(() => { btn.innerText = "GET"; btn.style.opacity = '1'; }, 300);
+                    }, 2000);
+                }, 300);
+            });
+        }
+    </script>
+</body>
+</html>
